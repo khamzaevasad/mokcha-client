@@ -1,10 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
-import HomePage from "./pages/home/HomePage";
-import ProductPage from "./pages/productPage/ProductPage";
-import OrderPage from "./pages/orderPage/OrderPage";
-import UserPage from "./pages/userPage/UserPage";
-import HelpPage from "./pages/helpPage/HelpPage";
+import { HomePage, ProductPage, OrderPage, UserPage, HelpPage } from "./pages";
 
 export function Routes() {
   const routes = createBrowserRouter([
