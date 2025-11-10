@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 function RootLayout() {
   return (
     <>
-      <header>
+      <header className="bg-base-300">
         <Navbar />
       </header>
       <main>

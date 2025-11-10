@@ -5,7 +5,7 @@ import Basket from "./Basket";
 function Navbar() {
   const authMember = null;
   return (
-    <nav className="navbar align-elements my-10">
+    <nav className="navbar align-elements">
       <div className="navbar-start">
         <NavLink to="/">
           <h3 className="text-2xl font-bold">Nusret</h3>
