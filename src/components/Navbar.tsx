@@ -1,5 +1,6 @@
 import { Avatar, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import Basket from "./Basket";
 
 function Navbar() {
   const authMember = null;
@@ -68,6 +69,8 @@ function Navbar() {
         >
           Help
         </NavLink>
+
+        <Basket />
 
         {!authMember ? (
           <Button variant="contained" size="small">
