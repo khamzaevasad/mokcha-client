@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
@@ -61,17 +61,21 @@ function Navbar() {
         <NavLink
           className={({ isActive }) =>
             isActive
-              ? "text-slate-800 hover:underline underline"
-              : " transition duration-300 ease-in-out text-slate-800"
+              ? "text-slate-800  underline"
+              : "hover:underline transition duration-300 ease-in-out text-slate-800"
           }
           to="/help"
         >
           Help
         </NavLink>
 
-        <Button variant="contained" size="small">
-          Login
-        </Button>
+        {!authMember ? (
+          <Button variant="contained" size="small">
+            Login
+          </Button>
+        ) : (
+          <Avatar src="/broken-image.jpg" />
+        )}
       </div>
     </nav>
   );
