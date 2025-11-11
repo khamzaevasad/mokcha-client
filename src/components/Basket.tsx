@@ -43,10 +43,10 @@ export default function Basket() {
     <div className="relative">
       {/* CART ICON */}
       <button
-        className="relative p-2 hover:bg-gray-100 rounded-full transition"
+        className="relative p-2 cursor-pointer hover:bg-[#1b76d2] rounded-full transition"
         onClick={() => setOpen(!open)}
       >
-        <ShoppingCart className="w-6 h-6 text-gray-700" />
+        <ShoppingCart className="w-6 h-6 text-white" />
         {cartItems.length > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">
             {cartItems.length}

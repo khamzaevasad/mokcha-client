@@ -3,82 +3,74 @@ import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 
 function Navbar() {
-  const authMember = null;
+  const authMember = true;
   return (
-    <nav className="navbar align-elements">
-      <div className="navbar-start">
-        <NavLink to="/">
-          <h3 className="text-2xl font-bold">Nusret</h3>
-        </NavLink>
-      </div>
+    <nav className="fixed top-0 left-0 w-full shadow-md z-50 backdrop-blur-md bg-black/20">
+      <div className="align-elements navbar">
+        <div className="navbar-start">
+          <NavLink to="/">
+            <h3 className="text-2xl font-bold text-white">MOKCHA</h3>
+          </NavLink>
+        </div>
 
-      <div className="navbar-end gap-7">
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "text-slate-800 hover:underline underline"
-              : " transition duration-300 ease-in-out text-slate-800"
-          }
-          to="/"
-        >
-          Home
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "text-slate-800 hover:underline underline"
-              : " transition duration-300 ease-in-out text-slate-800"
-          }
-          to="/products"
-        >
-          Products
-        </NavLink>
+        <div className="navbar-end gap-7 text-white text-xl">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+            }
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+            }
+            to="/products"
+          >
+            Products
+          </NavLink>
 
-        {authMember ? (
-          <>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "text-slate-800 hover:underline underline"
-                  : " transition duration-300 ease-in-out text-slate-800"
-              }
-              to="/orders"
-            >
-              Orders
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "text-slate-800 hover:underline underline"
-                  : " transition duration-300 ease-in-out text-slate-800"
-              }
-              to="/member-page"
-            >
-              My Page
-            </NavLink>
-          </>
-        ) : null}
+          {authMember ? (
+            <>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+                }
+                to="/orders"
+              >
+                Orders
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+                }
+                to="/member-page"
+              >
+                My Page
+              </NavLink>
+            </>
+          ) : null}
 
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "text-slate-800  underline"
-              : "hover:underline transition duration-300 ease-in-out text-slate-800"
-          }
-          to="/help"
-        >
-          Help
-        </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+            }
+            to="/help"
+          >
+            Help
+          </NavLink>
 
-        <Basket />
+          <Basket />
 
-        {!authMember ? (
-          <Button variant="contained" size="small">
-            Login
-          </Button>
-        ) : (
-          <Avatar src="/broken-image.jpg" />
-        )}
+          {!authMember ? (
+            <Button variant="contained" size="small">
+              Login
+            </Button>
+          ) : (
+            <Avatar src="/broken-image.jpg" className="cursor-pointer" />
+          )}
+        </div>
       </div>
     </nav>
   );
