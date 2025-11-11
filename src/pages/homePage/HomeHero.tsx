@@ -1,4 +1,5 @@
 import heroVideo from "../../assets/heroVideo.mov";
+import Signup from "../../components/Signup";
 function HomeHero() {
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -20,9 +21,7 @@ function HomeHero() {
         <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-md">
           Experience the best culinary art — taste, texture, and tradition.
         </p>
-        <button className="cursor-pointer bg-white text-black font-semibold px-6 py-3 rounded-full shadow-md hover:bg-gray-200 transition">
-          Sign Up
-        </button>
+        <Signup />
       </div>
 
       {/* OPTIONAL DARK OVERLAY (for better text visibility) */}
