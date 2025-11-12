@@ -20,7 +20,7 @@ function ResponsiveMenu({ open, authMember }: ResponsiveMenuProps) {
               {navPath.map(({ id, to, label }) => (
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? "underline text-blue-500" : ""
+                    isActive ? "underline" : "text-primary"
                   }
                   key={id}
                   to={to}
@@ -33,7 +33,7 @@ function ResponsiveMenu({ open, authMember }: ResponsiveMenuProps) {
                 ? authPath.map(({ id, to, label }) => (
                     <NavLink
                       className={({ isActive }) =>
-                        isActive ? "underline text-blue-500" : ""
+                        isActive ? "underline" : "text-primary"
                       }
                       key={id}
                       to={to}

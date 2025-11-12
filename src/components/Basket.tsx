@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
 
 export default function Basket() {
@@ -43,10 +43,10 @@ export default function Basket() {
     <div className="relative">
       {/* CART ICON */}
       <button
-        className="relative p-2 cursor-pointer hover:bg-[#1b76d2] rounded-full transition"
+        className="relative p-2 cursor-pointer hover:opacity-80 rounded-full transition"
         onClick={() => setOpen(!open)}
       >
-        <ShoppingCart className="w-6 h-6 text-white" />
+        <ShoppingCart className="w-6 h-6 text-primary" />
         {cartItems.length > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">
             {cartItems.length}
@@ -78,22 +78,22 @@ export default function Basket() {
                         alt={item.name}
                         className="w-12 h-12 object-cover rounded-lg mx-3"
                       />
-                      <div className="flex-1">
+                      <div className="flex-1 text-primary">
                         <p className="font-medium">{item.name}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-primary">
                           ${item.price} × {item.quantity}
                         </p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200"
+                          className="px-2 py-1 bg-primary rounded cursor-pointer"
                         >
                           −
                         </button>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200"
+                          className="px-2 py-1 bg-primary rounded cursor-pointer"
                         >
                           +
                         </button>
@@ -107,7 +107,7 @@ export default function Basket() {
                   <span className="font-semibold text-gray-700">
                     Total: ${total.toFixed(2)}
                   </span>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                  <button className="btn bg-primary text-white hover:opacity-80 transition">
                     Order
                   </button>
                 </div>

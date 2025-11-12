@@ -1,4 +1,4 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { navPath, authPath } from "../data/navbar";
 import Basket from "./Basket";
@@ -11,12 +11,14 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full shadow-md z-50 backdrop-blur-md bg-black/20">
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-lg border-b border-border shadow-lg">
         <div className="align-elements navbar">
           {/* start */}
           <div className="navbar-start">
             <NavLink to="/">
-              <h3 className="text-2xl font-bold text-white">MOKCHA</h3>
+              <h3 className="text-2xl font-bold text-[--color-background]">
+                MOKCHA
+              </h3>
             </NavLink>
           </div>
 
@@ -25,7 +27,9 @@ function Navbar() {
             {navPath.map(({ id, to, label }) => (
               <NavLink
                 className={({ isActive }) =>
-                  isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+                  isActive
+                    ? "bg-foreground px-0.5  rounded"
+                    : "text-primary rounded-lg text-sm font-medium transition-all duration-200 hover:bg-muted/60 px-0.5"
                 }
                 key={id}
                 to={to}
@@ -39,7 +43,9 @@ function Navbar() {
               ? authPath.map(({ id, to, label }) => (
                   <NavLink
                     className={({ isActive }) =>
-                      isActive ? "bg-[#1b76d2] p-1 rounded" : ""
+                      isActive
+                        ? "bg-foreground px-0.5 rounded"
+                        : "text-primary rounded-lg text-sm font-medium transition-all duration-200 hover:bg-muted/60 px-0.5"
                     }
                     key={id}
                     to={to}
@@ -54,14 +60,12 @@ function Navbar() {
           <div className="navbar-end gap-7 text-white text-xl">
             <Basket />
             {!authMember ? (
-              <Button variant="contained" size="small">
-                Login
-              </Button>
+              <button className="btn bg-foreground text-popover">Login</button>
             ) : (
               <Avatar src="/broken-image.jpg" className="cursor-pointer" />
             )}
             <div className="md:hidden" onClick={() => setOpen(!open)}>
-              <Menu className="cursor-pointer" />
+              <Menu className="cursor-pointer text-primary" />
             </div>
           </div>
         </div>
