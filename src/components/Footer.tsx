@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="bg-blend-exclusion">
+    <div className="bg-blend-exclusion mt-100 pt-10">
       <div className="footer sm:footer-horizontal text-black items-center p-4 align-elements">
         <aside className="grid-flow-col items-center">
           <svg

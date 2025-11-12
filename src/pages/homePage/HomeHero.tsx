@@ -40,22 +40,23 @@ function HomeHero() {
         <AnimatePresence mode="wait">
           <motion.div
             key={heroTitle[index].title}
-            className="flex flex-col items-center gap-2"
+            className="flex flex-col items-center gap-2 mb-6"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex items-center gap-3 text-4xl font-semibold">
+            <div className="flex items-center gap-3 text-6xl font-semibold">
               <span className="text-[#58cc03]">{heroTitle[index].title}</span>
-              <span className="text-3xl">{heroTitle[index].icon}</span>
+              {/* <span className="text-5xl">{heroTitle[index].icon}</span> */}
             </div>
           </motion.div>
         </AnimatePresence>
+        <h1 className="text-2xl">
+          Where tradition meets innovation on every plate.
+        </h1>
         <Signup />
       </div>
-
-      {/* OPTIONAL DARK OVERLAY (for better text visibility) */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-0"></div>
     </section>
   );

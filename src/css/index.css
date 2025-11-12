@@ -89,6 +89,7 @@ iframe {
   --sidebar-accent-foreground: #1f2547;
   --sidebar-border: #e6e8f2;
   --sidebar-ring: #444d78;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
 }
 
 .dark {

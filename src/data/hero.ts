@@ -1,26 +1,26 @@
 export const heroTitle = [
   {
-    title: "Experience the best culinary art — taste, texture, and tradition",
+    title: "Taste the art of flavor",
     icon: "🍽️",
   },
   {
-    title: "Where every bite tells a story",
+    title: "Every bite tells a story",
     icon: "🍱",
   },
   {
-    title: "From our kitchen to your heart",
+    title: "From our kitchen, with love",
     icon: "❤️",
   },
   {
-    title: "Redefining fine dining — one dish at a time",
+    title: "Fine dining, reimagined",
     icon: "🥩",
   },
   {
-    title: "Savor the harmony of taste and elegance",
+    title: "Where taste meets elegance",
     icon: "🌸",
   },
   {
-    title: "Crafted with passion, served with grace",
+    title: "Passion served fresh",
     icon: "🧑🏻‍🍳",
   },
 ];
