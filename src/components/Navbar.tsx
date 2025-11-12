@@ -7,7 +7,7 @@ import { useState } from "react";
 import ResponsiveMenu from "./ResponsiveMenu";
 
 function Navbar() {
-  const authMember = true;
+  const authMember = false;
   const [open, setOpen] = useState(false);
   return (
     <>
