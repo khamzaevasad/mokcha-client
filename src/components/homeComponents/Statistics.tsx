@@ -1,6 +1,6 @@
 function Statistics() {
   return (
-    <div className="py-10 bg-card shadow-xl">
+    <div className="py-10 bg-card shadow">
       <div className="flex items-center justify-between align-elements md:flex-row flex-col">
         <div className="flex items-center justify-center flex-col">
           <h3 className="text-accent font-bold md:text-6xl text-4xl">12</h3>

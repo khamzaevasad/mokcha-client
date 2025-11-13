@@ -1,4 +1,4 @@
-import { dishes } from "../../data/Dishes";
+import { dishes } from "../../data/dishes";
 
 function DishesCard() {
   return (
@@ -13,7 +13,7 @@ function DishesCard() {
               <figure className="h-56 w-full overflow-hidden">
                 <img
                   src={dish.productImg}
-                  alt="Shoes"
+                  alt={dish.productName}
                   className="object-cover w-full h-full"
                 />
               </figure>
@@ -36,9 +36,9 @@ function DishesCard() {
                 <p>{dish.productDesc}</p>
                 <div className="card-actions">
                   <div className="py-2 px-5 rounded-4xl bg-muted">
-                    {dish.productSize}
+                    Size: {dish.productSize}
                   </div>
-                  <div className="py-2 px-5 rounded-4xl bg-muted">
+                  <div className="py-2 px-5 rounded-4xl bg-muted font-semibold">
                     $ {dish.productPrice}
                   </div>
                 </div>
