@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { navPath, authPath } from "../data/navbar";
+import { navPath, authPath } from "../../data/navbar";
 import Basket from "./Basket";
 import { LogInIcon, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -73,7 +73,7 @@ function Navbar() {
           <div className="navbar-end gap-3 text-white text-xl">
             <Basket />
             {!authMember ? (
-              <button className="bg-primary text-sm py-1.5 px-3 rounded-2xl transition-all duration-200 cursor-pointer hover:scale-120 hover:shadow-xl">
+              <button className="bg-primary text-sm py-1.5 px-3 rounded-2xl transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-xl">
                 <LogInIcon className="text-xs mr-2 hidden md:inline" />
                 Login
               </button>

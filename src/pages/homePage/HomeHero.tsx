@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import heroVideo from "../../assets/heroVideo.mov";
-import Signup from "../../components/Signup";
+import Signup from "../../components/homeComponents/Signup";
 import { heroTitle } from "../../data/hero";
 import { AnimatePresence, motion } from "framer-motion";
 

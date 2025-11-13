@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { navPath, authPath } from "../data/navbar";
+import { navPath, authPath } from "../../data/navbar";
 import { NavLink } from "react-router-dom";
 type ResponsiveMenuProps = {
   open: boolean;
