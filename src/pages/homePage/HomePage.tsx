@@ -1,4 +1,4 @@
-import { Statistics, PopularDishes, NewDishes } from "../index";
+import { Statistics, PopularDishes, NewDishes, Feedback } from "../index";
 import HomeHero from "./HomeHero";
 
 function HomePage() {
@@ -8,6 +8,7 @@ function HomePage() {
       <Statistics />
       <PopularDishes />
       <NewDishes />
+      <Feedback />
     </div>
   );
 }

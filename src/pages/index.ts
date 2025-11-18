@@ -6,3 +6,4 @@ export { default as HelpPage } from "./helpPage/HelpPage";
 export { default as NewDishes } from "../components/homeComponents/NewDishes";
 export { default as PopularDishes } from "../components/homeComponents/PopularDishes";
 export { default as Statistics } from "../components/homeComponents/Statistics";
+export { default as Feedback } from "../components/homeComponents/Feedback";
