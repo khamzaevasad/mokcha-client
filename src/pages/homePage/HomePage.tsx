@@ -1,3 +1,4 @@
+import About from "../../components/homeComponents/About";
 import { Statistics, PopularDishes, NewDishes, Feedback } from "../index";
 import HomeHero from "./HomeHero";
 
@@ -5,7 +6,8 @@ function HomePage() {
   return (
     <div>
       <HomeHero />
-      <Statistics />
+      <About />
+      {/* <Statistics /> */}
       <PopularDishes />
       <NewDishes />
       <Feedback />
