@@ -1,5 +1,5 @@
 import About from "../../components/homeComponents/About";
-import { Statistics, PopularDishes, NewDishes, Feedback } from "../index";
+import { PopularDishes, NewDishes, Feedback } from "../index";
 import HomeHero from "./HomeHero";
 
 function HomePage() {
@@ -7,7 +7,6 @@ function HomePage() {
     <div>
       <HomeHero />
       <About />
-      {/* <Statistics /> */}
       <PopularDishes />
       <NewDishes />
       <Feedback />
