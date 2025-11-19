@@ -4,19 +4,19 @@ import Footer from "../components/homeComponents/Footer";
 
 function RootLayout() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <header className="bg-base-300">
         <Navbar />
       </header>
-      <main>
+      <main className="flex-1 pt-[80px]">
         <section>
           <Outlet />
         </section>
       </main>
-      <footer>
+      <footer className="mt-auto">
         <Footer />
       </footer>
-    </>
+    </div>
   );
 }
 

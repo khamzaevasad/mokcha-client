@@ -2,7 +2,7 @@ import { UtensilsCrossed } from "lucide-react";
 
 function Footer() {
   return (
-    <footer className="footer footer-horizontal footer-center bg-card-100 text-primary p-10 border">
+    <div className="footer footer-horizontal footer-center bg-card-100 text-primary p-10 border">
       <aside>
         <UtensilsCrossed />
 
@@ -59,7 +59,7 @@ function Footer() {
           </a>
         </div>
       </nav>
-    </footer>
+    </div>
   );
 }
 
