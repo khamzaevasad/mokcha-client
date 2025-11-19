@@ -1,5 +1,5 @@
 function HelpPage() {
-  return <div>HelpPage</div>;
+  return <div className="text-4xl text-center">Page under development.</div>;
 }
 
 export default HelpPage;

@@ -1,10 +1,10 @@
 function SearchTitle() {
   return (
     <div className="align-elements my-20">
-      <div className="flex items-center justify-between">
+      <div className="md:flex-row flex items-center justify-between flex-col">
         <h2 className="text-3xl font-bold">Our Menu</h2>
         <div>
-          <label className="input border rounded-2xl min-w-2xs">
+          <label className="input border rounded-2xl min-w-[400px] md:m-0 mt-6">
             <svg
               className="h-[1em] opacity-50"
               xmlns="http://www.w3.org/2000/svg"

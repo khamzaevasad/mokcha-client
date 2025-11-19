@@ -8,3 +8,7 @@ export { default as PopularDishes } from "../components/homeComponents/PopularDi
 export { default as Statistics } from "../components/homeComponents/Statistics";
 export { default as Feedback } from "../components/homeComponents/Feedback";
 export { default as SearchTitle } from "../components/ProductComponents/SearchTitle";
+export { default as MainContent } from "../components/ProductComponents/MainContent";
+export { default as Aside } from "../components/ProductComponents/Aside";
+export { default as RightFilters } from "../components/ProductComponents/RightFilters";
+export { default as ProductCards } from "../components/cards/ProductCards";

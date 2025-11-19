@@ -1,10 +1,10 @@
 import { dishes } from "../../data/dishes";
 
-function DishesCard() {
+function ProductCards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
       {dishes.length > 0 ? (
-        dishes.slice(0, 4).map((dish) => {
+        dishes.map((dish) => {
           return (
             <div
               key={dish.id}
@@ -45,8 +45,8 @@ function DishesCard() {
 
                 <button
                   className="absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-6 rounded-4xl
-               bg-primary text-white font-bold transition-all duration-300
-               opacity-0 group-hover:opacity-100 cursor-pointer"
+                   bg-primary text-white font-bold transition-all duration-300
+                   opacity-0 group-hover:opacity-100 cursor-pointer"
                 >
                   Add to Basket
                 </button>
@@ -65,4 +65,4 @@ function DishesCard() {
   );
 }
 
-export default DishesCard;
+export default ProductCards;
