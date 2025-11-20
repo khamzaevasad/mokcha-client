@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { dishes } from "../../data/dishes";
 
 function DishesCard() {
@@ -6,7 +7,8 @@ function DishesCard() {
       {dishes.length > 0 ? (
         dishes.slice(0, 4).map((dish) => {
           return (
-            <div
+            <NavLink
+              to={`/product/${dish.id}`}
               key={dish.id}
               className="card bg-card-100  shadow-sm cursor-pointer transition-all duration-400 hover:scale-105 hover:shadow-xl border relative group"
             >
@@ -51,7 +53,7 @@ function DishesCard() {
                   Add to Basket
                 </button>
               </div>
-            </div>
+            </NavLink>
           );
         })
       ) : (

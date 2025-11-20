@@ -1,4 +1,4 @@
-import About from "../../components/homeComponents/About";
+import About from "../../components/home/About";
 import { PopularDishes, NewDishes, Feedback } from "../index";
 import HomeHero from "./HomeHero";
 

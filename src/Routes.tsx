@@ -1,6 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
-import { HomePage, ProductPage, OrderPage, UserPage, HelpPage } from "./pages";
+import {
+  HomePage,
+  ProductPage,
+  OrderPage,
+  UserPage,
+  HelpPage,
+  ProductInfo,
+} from "./pages";
 
 export function Routes() {
   const routes = createBrowserRouter([
@@ -27,6 +34,10 @@ export function Routes() {
         {
           path: "/help",
           element: <HelpPage />,
+        },
+        {
+          path: "/product/:id",
+          element: <ProductInfo />,
         },
       ],
     },
