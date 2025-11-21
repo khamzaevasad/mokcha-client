@@ -14,3 +14,4 @@ export { default as Aside } from "../components/product/Aside";
 export { default as RightFilters } from "../components/product/RightFilters";
 export { default as ProductCards } from "../components/cards/ProductCards";
 export { default as RecommendedDishes } from "../components/product/RecommendedDishes";
+export { default as Help } from "../components/help/Help";

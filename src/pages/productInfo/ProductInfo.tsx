@@ -6,7 +6,6 @@ function ProductInfo() {
   const { id } = useParams();
 
   const product = dishes.find((product) => product.id === Number(id));
-  console.log(product);
   return (
     <div className="my-20 align-elements">
       <div className="flex gap-14 lg:flex-row flex-col">

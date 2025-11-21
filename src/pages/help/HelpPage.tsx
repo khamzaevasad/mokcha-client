@@ -1,5 +1,11 @@
+import Help from "../../components/help/Help";
+
 function HelpPage() {
-  return <div className="text-4xl text-center">Page under development.</div>;
+  return (
+    <div className="align-elements my-20">
+      <Help />
+    </div>
+  );
 }
 
 export default HelpPage;
