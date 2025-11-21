@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { dishes } from "../../data/dishes";
+import RecommendedDishes from "../../components/product/RecommendedDishes";
 
 function ProductInfo() {
   const { id } = useParams();
@@ -87,6 +88,13 @@ function ProductInfo() {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* recommended */}
+
+      <div className="my-20">
+        <h2 className="font-bold text-4xl mb-2">Recommended Dishes</h2>
+        <RecommendedDishes />
       </div>
     </div>
   );
