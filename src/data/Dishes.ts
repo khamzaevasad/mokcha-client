@@ -8,6 +8,7 @@ export const dishes = [
       "Traditional Turkish minced lamb kebab grilled on skewers with rich spices and served with lavash bread.",
     productImg:
       "https://www.saveur.com/uploads/2019/10/17/YLU6THKTRPPOTQ65IGT7MTSPSI.jpg?format=webp&optimize=high&precrop=1%3A1%2Csmart",
+    views: 730,
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const dishes = [
       "Slices of doner kebab served over pieces of pita bread, topped with tomato sauce, melted butter, and yogurt.",
     productImg:
       "https://tureckisklep.pl/wp-content/uploads/2019/05/jak-zrobic-iskender-kebab-sekrety-tureckiego-przysmaku-przepis.png",
+    views: 1490,
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ export const dishes = [
       "Juicy ribeye steak grilled to perfection, served with roasted vegetables and signature Turkish spices.",
     productImg:
       "https://cdn.momsdish.com/wp-content/uploads/2021/06/Ribeye-Steak-Recipe13.jpg",
+    views: 980,
   },
   {
     id: 4,
@@ -38,8 +41,8 @@ export const dishes = [
       "Thin crispy Turkish pizza topped with minced meat, vegetables, and herbs — best enjoyed rolled with parsley and lemon.",
     productImg:
       "https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/5f6ef02e81f087b8c3d093d5d511cd3f/Derivates/3d9ae701d159ef565e935d66bb7114bb0b62421e.jpg",
+    views: 420,
   },
-
   {
     id: 5,
     productName: "Mixed Meze Platter",
@@ -48,6 +51,7 @@ export const dishes = [
     productDesc:
       "A selection of traditional Turkish appetizers including hummus, baba ganoush, ezme, and haydari served with warm bread.",
     productImg: "https://www.halaltag.com/images/photo/2844-photo.jpg",
+    views: 210,
   },
   {
     id: 6,
@@ -58,6 +62,7 @@ export const dishes = [
       "Boat-shaped Turkish flatbread loaded with melted Turkish kashar cheese and brushed with butter.",
     productImg:
       "https://images.immediate.co.uk/production/volatile/sites/2/2016/08/25203.jpg?quality=90&resize=708,643",
+    views: 540,
   },
   {
     id: 7,
@@ -68,6 +73,7 @@ export const dishes = [
       "Marinated chicken cubes grilled on skewers served with bulgur and grilled vegetables.",
     productImg:
       "https://www.thespruceeats.com/thmb/YOchBjKlOJD0qBxHP9cWHJa18IE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/basic-turkish-chicken-kebab-3274263-hero-01-0170beb39a8149a091cf8ae3a53bada8.jpg",
+    views: 875,
   },
   {
     id: 8,
@@ -78,6 +84,7 @@ export const dishes = [
       "Classic Turkish doner meat wrapped in lavash with lettuce, onion, tomatoes, and garlic sauce.",
     productImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTsebnHqMoNqblYiaLfWlMemg8iy_9mTJQGg&s",
+    views: 600,
   },
   {
     id: 9,
@@ -88,6 +95,7 @@ export const dishes = [
       "Traditional cracked wheat cooked with tomato, pepper, and aromatic spices.",
     productImg:
       "https://www.thespruceeats.com/thmb/8VojDVWYBH4ngyuutM7QI0oQ7zU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/bulgur-and-vegetable-pilaf-3274122-hero-01-5c587bb046e0fb0001c093fd.jpg",
+    views: 300,
   },
   {
     id: 10,
@@ -98,6 +106,7 @@ export const dishes = [
       "Red lentil soup seasoned with cumin, paprika, and served with lemon and fresh herbs.",
     productImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2UpC8S-wqN85McusPvAXe0kJ62mVSz-_ebQ&s",
+    views: 455,
   },
   {
     id: 11,
@@ -108,6 +117,7 @@ export const dishes = [
       "Crispy layered pastry filled with premium pistachios and drizzled with syrup.",
     productImg:
       "https://houseandhome.com/wp-content/uploads/2025/01/Feature_Turkish-Pistachio-Baklava.jpg",
+    views: 1320,
   },
   {
     id: 12,
@@ -118,6 +128,7 @@ export const dishes = [
       "Traditional hot dessert made with shredded dough, sweet cheese, and pistachios soaked in syrup.",
     productImg:
       "https://turkishcravings.com/wp-content/uploads/2021/02/KUNEFE-FEATURED-2254-x-1178.jpg",
+    views: 780,
   },
   {
     id: 13,
@@ -128,6 +139,7 @@ export const dishes = [
       "Refreshing yogurt-based drink lightly salted and served chilled.",
     productImg:
       "https://www.shutterstock.com/image-photo/ayran-traditional-turkish-yoghurt-drink-600nw-2550697925.jpg",
+    views: 260,
   },
   {
     id: 14,
@@ -137,6 +149,7 @@ export const dishes = [
     productDesc: "Fresh brewed Turkish tea infused with pomegranate flavor.",
     productImg:
       "https://cdn-allef.nitrocdn.com/srVCBWNuegbwocAiOJUUWBFJUXMzFNKm/assets/images/optimized/rev-0bbec08/www.tea-and-coffee.com/wp-content/uploads/2022/12/Pomegranate-Tea-for-Weight-Loss.jpg",
+    views: 195,
   },
   {
     id: 15,
@@ -147,6 +160,7 @@ export const dishes = [
       "Grape leaves stuffed with rice, spices, and herbs served with lemon yogurt sauce.",
     productImg:
       "https://www.dianekochilas.com/wp-content/uploads/2020/07/grape-leave.jpg",
+    views: 670,
   },
   {
     id: 16,
@@ -157,6 +171,7 @@ export const dishes = [
       "Crispy fried phyllo rolls filled with feta cheese and parsley.",
     productImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrl5LtGVuh2APtl-BjMorLamya6Sb2cqdpYg&s",
+    views: 490,
   },
 ];
 
