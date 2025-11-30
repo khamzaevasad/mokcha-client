@@ -72,7 +72,7 @@ export const dishes = [
     productDesc:
       "Marinated chicken cubes grilled on skewers served with bulgur and grilled vegetables.",
     productImg:
-      "https://www.thespruceeats.com/thmb/YOchBjKlOJD0qBxHP9cWHJa18IE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/basic-turkish-chicken-kebab-3274263-hero-01-0170beb39a8149a091cf8ae3a53bada8.jpg",
+      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaD7j8Z6NK88iioLBM3ZBBTJFSRTZaMpa2qASonqfqoe9ooRmJppq_khx4AhMm3_lvqff7D5fuSgaHCAB2CMMox2LVKbD0U19GqNlmHmzbmP5Dfojh-mFrPdiswLdCA0ShkLyQcpgWOG1RGp63XBiV5lWAcj-iFUL18g1EmTUck2iVpkCQieiPZTryuuE/s864/chicken-shish-kebab.webp",
     views: 875,
   },
   {
@@ -94,7 +94,7 @@ export const dishes = [
     productDesc:
       "Traditional cracked wheat cooked with tomato, pepper, and aromatic spices.",
     productImg:
-      "https://www.thespruceeats.com/thmb/8VojDVWYBH4ngyuutM7QI0oQ7zU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/bulgur-and-vegetable-pilaf-3274122-hero-01-5c587bb046e0fb0001c093fd.jpg",
+      "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/carrot_and_butter_bean_59857_16x9.jpg",
     views: 300,
   },
   {
