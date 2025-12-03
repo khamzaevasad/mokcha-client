@@ -1,6 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { AppRootState } from "../../lib/types/screen";
-
 const selectHomePage = (state: AppRootState) => {
   return state.homePage;
 };
