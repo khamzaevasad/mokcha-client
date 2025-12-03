@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { retrieveHomePage } from "../../pages/home/selector";
 import { serverApi } from "../../lib/config";
+import { ProductCollection } from "../../lib/enums/product.enum";
 
 function FreshMenuCard() {
   const { newDishes } = useSelector(retrieveHomePage);
@@ -9,6 +10,11 @@ function FreshMenuCard() {
       {newDishes.length > 0 ? (
         newDishes.map((menu) => {
           const imagePath = `${serverApi}/${menu.productImages[0]}`;
+          const sizeVolume =
+            menu.productCollection === ProductCollection.DRINK
+              ? menu.ProductVolume + "l"
+              : menu.productSize + " size";
+
           return (
             <div
               key={menu._id}
@@ -69,7 +75,7 @@ function FreshMenuCard() {
                 {/* Price and Size */}
                 <div className="card-actions mt-3">
                   <div className="py-2 px-5 rounded-4xl bg-muted text-sm font-medium">
-                    Size: {menu.productSize}
+                    {sizeVolume}
                   </div>
                   <div className="py-2 px-5 rounded-4xl bg-muted text-sm font-semibold">
                     ${menu.productPrice}
