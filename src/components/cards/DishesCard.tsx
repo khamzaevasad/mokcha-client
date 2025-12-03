@@ -40,6 +40,31 @@ function DishesCard() {
                   </div>
                 </div>
                 <p>{dish.productDesc}</p>
+
+                {/* Views */}
+                <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.8}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12s-3.75 6.75-9.75 6.75S2.25 12 2.25 12z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 15a3 3 0 100-6 3 3 0 000 6z"
+                    />
+                  </svg>
+                  <span>{dish.productViews} views</span>
+                </div>
+
                 <div className="card-actions  opacity-100 group-hover:opacity-0">
                   <div className="py-2 px-5 rounded-4xl bg-muted">
                     Size: {dish.productSize}

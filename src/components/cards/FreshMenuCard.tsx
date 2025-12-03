@@ -1,13 +1,17 @@
-import { freshMenu } from "../../data/dishes";
+import { useSelector } from "react-redux";
+import { retrieveHomePage } from "../../pages/home/selector";
+import { serverApi } from "../../lib/config";
 
 function FreshMenuCard() {
+  const { newDishes } = useSelector(retrieveHomePage);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-6">
-      {freshMenu.length > 0 ? (
-        freshMenu.map((menu) => {
+      {newDishes.length > 0 ? (
+        newDishes.map((menu) => {
+          const imagePath = `${serverApi}/${menu.productImages[0]}`;
           return (
             <div
-              key={menu.id}
+              key={menu._id}
               className="card bg-card-100 shadow-sm cursor-pointer transition-all duration-400 hover:scale-105 hover:shadow-xl border relative"
             >
               {/* "NEW" label */}
@@ -18,7 +22,7 @@ function FreshMenuCard() {
               {/* Image */}
               <figure className="h-56 w-full overflow-hidden relative">
                 <img
-                  src={menu.productImg}
+                  src={imagePath}
                   alt={menu.productName}
                   className="object-cover w-full h-full"
                 />
@@ -59,7 +63,7 @@ function FreshMenuCard() {
                       d="M12 15a3 3 0 100-6 3 3 0 000 6z"
                     />
                   </svg>
-                  <span>{menu.views} views</span>
+                  <span>{menu.productViews} views</span>
                 </div>
 
                 {/* Price and Size */}
@@ -76,7 +80,11 @@ function FreshMenuCard() {
           );
         })
       ) : (
-        <h1>hayr</h1>
+        <div className="grid place-items-center min-h-[400px] col-span-full">
+          <h3 className="text-center font-bold text-3xl text-error">
+            products are not available
+          </h3>
+        </div>
       )}
     </div>
   );
