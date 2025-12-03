@@ -1,4 +1,5 @@
 export { default as HomePage } from "./home/HomePage";
+export { default as HomeHero } from "./home/HomeHero";
 export { default as OrderPage } from "./order/OrderPage";
 export { default as ProductPage } from "./product/ProductPage";
 export { default as UserPage } from "./user/UserPage";
@@ -15,3 +16,5 @@ export { default as RightFilters } from "../components/product/RightFilters";
 export { default as ProductCards } from "../components/cards/ProductCards";
 export { default as RecommendedDishes } from "../components/product/RecommendedDishes";
 export { default as Help } from "../components/help/Help";
+export { default as Iframe } from "../components/home/Iframe";
+export { default as About } from "../components/home/About";

@@ -1,7 +1,11 @@
-import { member } from "../../data/member";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
+import { retrieveHomePage } from "../../pages/home/selector";
+import { serverApi } from "../../lib/config";
 
 function UserCard() {
+  const { topUsers } = useSelector(retrieveHomePage);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -30,7 +34,7 @@ function UserCard() {
   return (
     <div className="my-6">
       <Slider {...settings}>
-        {member.map((user) => (
+        {topUsers.map((user) => (
           <div key={user.memberPhone} className="px-4 py-2">
             <div className="card bg-card-100 shadow-sm cursor-pointer transition-all duration-400 hover:scale-105 hover:shadow-xl border">
               <div className="card-body">
@@ -38,8 +42,8 @@ function UserCard() {
                   <div className="mt-4 flex flex-col items-center justify-center gap-4">
                     <figure className="h-15 w-15 rounded-full overflow-hidden">
                       <img
-                        src={user.memberImage}
-                        alt="user"
+                        src={`${serverApi}/${user.memberImage}`}
+                        alt={user.memberNick}
                         className="w-full h-full object-cover"
                       />
                     </figure>
@@ -50,7 +54,7 @@ function UserCard() {
                       "{user.memberDesc}"
                     </h4>
                     <p className="text-muted-foreground mt-4">
-                      {user.createdAt}
+                      {new Date(user.createdAt).toLocaleDateString("en-CA")}
                     </p>
                   </div>
                 </div>

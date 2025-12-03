@@ -1,5 +1,3 @@
-import React from "react";
-
 function Iframe() {
   return (
     <div className="my-20 align-elements">
