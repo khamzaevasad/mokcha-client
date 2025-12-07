@@ -28,6 +28,7 @@ function HomePage() {
   const { setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(
     useDispatch()
   );
+
   useEffect(() => {
     const product = new ProductService();
     const member = new MemberService();

@@ -1,11 +1,11 @@
-import MainContent from "../../components/product/MainContent";
-import SearchTitle from "../../components/product/SearchTitle";
+import { MainContent, SearchTitle, Pagination } from "../index";
 
 function ProductPage() {
   return (
-    <div>
+    <div className="align-elements">
       <SearchTitle />
       <MainContent />
+      <Pagination />
     </div>
   );
 }

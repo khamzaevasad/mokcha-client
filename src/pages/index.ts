@@ -10,9 +10,12 @@ export { default as PopularDishes } from "../components/home/PopularDishes";
 export { default as Statistics } from "../components/home/Statistics";
 export { default as Feedback } from "../components/home/Feedback";
 export { default as SearchTitle } from "../components/product/SearchTitle";
-export { default as MainContent } from "../components/product/MainContent";
+
 export { default as Aside } from "../components/product/Aside";
 export { default as RightFilters } from "../components/product/RightFilters";
+
+export { default as MainContent } from "../components/product/MainContent";
+export { default as Pagination } from "../components/product/Pagination";
 export { default as ProductCards } from "../components/cards/ProductCards";
 export { default as RecommendedDishes } from "../components/product/RecommendedDishes";
 export { default as Help } from "../components/help/Help";
