@@ -13,7 +13,7 @@ function FreshMenuCard() {
           const sizeVolume =
             menu.productCollection === ProductCollection.DRINK
               ? menu.ProductVolume + "l"
-              : menu.productSize + " size";
+              : "Size: " + menu.productSize.toLocaleLowerCase();
 
           return (
             <div

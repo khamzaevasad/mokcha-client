@@ -1,20 +1,31 @@
 import { NavLink } from "react-router-dom";
 import { dishes } from "../../data/dishes";
+import { retrieveProductPage } from "../../pages/product/selector";
+import { useSelector } from "react-redux";
+import { serverApi } from "../../lib/config";
+import { ProductCollection } from "../../lib/enums/product.enum";
 
 function ProductCards() {
+  const { products } = useSelector(retrieveProductPage);
+  console.log("products", products);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
       {dishes.length > 0 ? (
-        dishes.map((dish) => {
+        products.map((dish) => {
+          const imagePath = `${serverApi}/${dish.productImages[0]}`;
+          const sizeVolume =
+            dish.productCollection === ProductCollection.DRINK
+              ? dish.ProductVolume + "l"
+              : "Size: " + dish.productSize.toLocaleLowerCase();
           return (
             <NavLink
-              to={`/product/${dish.id}`}
-              key={dish.id}
+              to={`/product/${dish._id}`}
+              key={dish._id}
               className="card bg-card-100  shadow-sm cursor-pointer transition-all duration-400 hover:scale-105 hover:shadow-xl border relative group"
             >
               <figure className="h-56 w-full overflow-hidden">
                 <img
-                  src={dish.productImg}
+                  src={imagePath}
                   alt={dish.productName}
                   className="object-cover w-full h-full"
                 />
@@ -27,7 +38,7 @@ function ProductCards() {
                       <input
                         key={i}
                         type="radio"
-                        name={`rating-${dish.id}`}
+                        name={`rating-${dish._id}`}
                         className="mask mask-star-2 bg-orange-400"
                         aria-label={`${i + 1} star`}
                         defaultChecked={i === 4}
@@ -36,9 +47,32 @@ function ProductCards() {
                   </div>
                 </div>
                 <p>{dish.productDesc}</p>
+                {/* Views */}
+                <div className="flex items-center gap-1 text-sm text-gray-500 my-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.8}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12s-3.75 6.75-9.75 6.75S2.25 12 2.25 12z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 15a3 3 0 100-6 3 3 0 000 6z"
+                    />
+                  </svg>
+                  <span>{dish.productViews} views</span>
+                </div>
                 <div className="card-actions  opacity-100 group-hover:opacity-0">
                   <div className="py-2 px-5 rounded-4xl bg-muted">
-                    Size: {dish.productSize}
+                    {sizeVolume}
                   </div>
                   <div className="py-2 px-5 rounded-4xl bg-muted font-semibold">
                     $ {dish.productPrice}
