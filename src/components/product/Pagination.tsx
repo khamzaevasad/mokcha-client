@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 function Pagination() {
   const { products } = useSelector(retrieveProductPage);
-  console.log(products);
   const ctx = useContext(ProductPageContext);
   if (!ctx) return null;
   const { productSearch, setProductSearch } = ctx;
@@ -26,17 +25,17 @@ function Pagination() {
         <button
           disabled={isPrevDisabled}
           onClick={previousPage}
-          className="join-item btn border-0 shadow-xs bg-accent disabled:bg-accent/50 disabled:cursor-not-allowed"
+          className="join-item btn border-0 shadow-xs bg-accent disabled:bg-accent/50 disabled:cursor-not-allowed text-white"
         >
           «
         </button>
-        <button className="join-item btn border-0 shadow-xs bg-accent">
+        <button className="join-item btn border-0 shadow-xs bg-accent text-white">
           Page {productSearch.page}
         </button>
         <button
           disabled={isNextDisabled}
           onClick={nextPage}
-          className="join-item btn border-0 shadow-xs bg-accent disabled:bg-accent/50 disabled:cursor-not-allowed"
+          className="join-item btn border-0 shadow-xs bg-accent disabled:bg-accent/50 disabled:cursor-not-allowed text-white"
         >
           »
         </button>

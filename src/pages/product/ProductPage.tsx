@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { MainContent, SearchTitle, Pagination } from "../index";
-import { Member } from "../../lib/types/member";
-import { setProducts, setRestaurant } from "./slice";
+
+import { setProducts } from "./slice";
 import { Product, ProductInquiry } from "../../lib/types/product";
 import { useEffect, useState } from "react";
 import ProductService from "../../services/ProductService";
@@ -12,7 +12,6 @@ import { ProductPageContext } from "../../context/ProductPageContext";
 /**Redux Slice & Selector**/
 
 const actionDispatch = (dispatch: Dispatch) => ({
-  setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
 });
 

@@ -1,9 +1,9 @@
-import DishesCard from "../cards/DishesCard";
+import RecommendedCard from "../cards/RecommendedCard";
 
 function RecommendedDishes() {
   return (
     <div>
-      <DishesCard />
+      <RecommendedCard />
     </div>
   );
 }

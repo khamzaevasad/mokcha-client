@@ -6,6 +6,7 @@ export const retrieveProductInfoPage = createSelector(
   selectProductInfoPage,
   (productInfoPage) => {
     return {
+      restaurant: productInfoPage.restaurant,
       chosenProduct: productInfoPage.chosenProduct,
       recommendedProduct: productInfoPage.recommendedProduct,
     };
