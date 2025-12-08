@@ -12,9 +12,8 @@ function FreshMenuCard() {
           const imagePath = `${serverApi}/${menu.productImages[0]}`;
           const sizeVolume =
             menu.productCollection === ProductCollection.DRINK
-              ? menu.ProductVolume + "l"
+              ? menu.productVolume + " liter"
               : "Size: " + menu.productSize.toLocaleLowerCase();
-
           return (
             <div
               key={menu._id}

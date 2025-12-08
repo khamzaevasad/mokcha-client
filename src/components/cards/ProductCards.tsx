@@ -14,7 +14,7 @@ function ProductCards() {
           const imagePath = `${serverApi}/${dish.productImages[0]}`;
           const sizeVolume =
             dish.productCollection === ProductCollection.DRINK
-              ? dish.ProductVolume + "l"
+              ? dish.productVolume + " liter"
               : "Size: " + dish.productSize.toLocaleLowerCase();
           return (
             <NavLink
