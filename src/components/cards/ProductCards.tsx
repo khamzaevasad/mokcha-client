@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { dishes } from "../../data/dishes";
 import { retrieveProductPage } from "../../pages/product/selector";
 import { useSelector } from "react-redux";
 import { serverApi } from "../../lib/config";
@@ -7,10 +6,10 @@ import { ProductCollection } from "../../lib/enums/product.enum";
 
 function ProductCards() {
   const { products } = useSelector(retrieveProductPage);
-  console.log("products", products);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
-      {dishes.length > 0 ? (
+      {products.length > 0 ? (
         products.map((dish) => {
           const imagePath = `${serverApi}/${dish.productImages[0]}`;
           const sizeVolume =
