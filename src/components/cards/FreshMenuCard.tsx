@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { retrieveHomePage } from "../../pages/home/selector";
 import { serverApi } from "../../lib/config";
 import { ProductCollection } from "../../lib/enums/product.enum";
+import { NavLink } from "react-router-dom";
 
 function FreshMenuCard() {
   const { newDishes } = useSelector(retrieveHomePage);
@@ -15,7 +16,8 @@ function FreshMenuCard() {
               ? menu.productVolume + " liter"
               : "Size: " + menu.productSize.toLocaleLowerCase();
           return (
-            <div
+            <NavLink
+              to={`/product/${menu._id}`}
               key={menu._id}
               className="card bg-card-100 shadow-sm cursor-pointer transition-all duration-400 hover:scale-105 hover:shadow-xl border relative"
             >
@@ -81,7 +83,7 @@ function FreshMenuCard() {
                   </div>
                 </div>
               </div>
-            </div>
+            </NavLink>
           );
         })
       ) : (
