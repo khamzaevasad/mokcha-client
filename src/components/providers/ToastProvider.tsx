@@ -2,5 +2,5 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ToastProvider() {
-  return <ToastContainer position="top-right" autoClose={1500} />;
+  return <ToastContainer position="bottom-right" autoClose={1500} />;
 }

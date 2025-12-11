@@ -14,6 +14,7 @@ import MemberService from "../../services/MemberService";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveProductInfoPage } from "./selector";
 import { serverApi } from "../../lib/config";
+import { useApp } from "../../hooks/useApp";
 
 /**Redux Slice & Selector**/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -28,7 +29,9 @@ function ProductInfo() {
     actionDispatch(useDispatch());
   const { id } = useParams();
   const { chosenProduct, restaurant } = useSelector(retrieveProductInfoPage);
+  const { onAdd } = useApp();
 
+  // apiCall
   useEffect(() => {
     if (!id) return;
     const product = new ProductService();
@@ -49,6 +52,7 @@ function ProductInfo() {
       .then((data) => setRestaurant(data))
       .catch((err) => console.log(err));
   }, []);
+
   const imagePath = `${serverApi}/${chosenProduct?.productImages[0]}`;
   return (
     <div className="my-20 align-elements">
@@ -129,6 +133,15 @@ function ProductInfo() {
             </div>
 
             <button
+              onClick={() => {
+                onAdd({
+                  _id: chosenProduct?._id || "",
+                  quantity: 1,
+                  name: chosenProduct?.productName || "unknown name",
+                  price: chosenProduct?.productPrice || 0,
+                  image: chosenProduct?.productImages[0] || "unknown image",
+                });
+              }}
               className="py-2 px-6 rounded-4xl shadow
                bg-primary text-white font-bold transition-all duration-300
                cursor-pointer hover:scale-105 hover:shadow-xl sm:m-0 mt-4"

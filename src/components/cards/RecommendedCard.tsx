@@ -2,8 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { serverApi } from "../../lib/config";
 import { retrieveProductInfoPage } from "../../pages/productInfo/selector";
+import { useApp } from "../../hooks/useApp";
 
 function RecommendedCard() {
+  const { onAdd } = useApp();
   const { recommendedProduct } = useSelector(retrieveProductInfoPage);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-6">
@@ -75,6 +77,15 @@ function RecommendedCard() {
                 </div>
 
                 <button
+                  onClick={() =>
+                    onAdd({
+                      _id: dish._id,
+                      quantity: 1,
+                      name: dish.productName,
+                      price: dish.productPrice,
+                      image: dish.productImages[0],
+                    })
+                  }
                   className="absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-6 rounded-4xl
                bg-primary text-white font-bold transition-all duration-300
                opacity-0 group-hover:opacity-100 cursor-pointer"
