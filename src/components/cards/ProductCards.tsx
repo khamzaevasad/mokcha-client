@@ -3,10 +3,11 @@ import { retrieveProductPage } from "../../pages/product/selector";
 import { useSelector } from "react-redux";
 import { serverApi } from "../../lib/config";
 import { ProductCollection } from "../../lib/enums/product.enum";
+import { useApp } from "../../hooks/useApp";
 
 function ProductCards() {
   const { products } = useSelector(retrieveProductPage);
-
+  const { onAdd } = useApp();
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
       {products.length > 0 ? (
@@ -79,6 +80,17 @@ function ProductCards() {
                 </div>
 
                 <button
+                  onClick={(e) => {
+                    onAdd({
+                      _id: dish._id,
+                      quantity: 1,
+                      name: dish.productName,
+                      price: dish.productPrice,
+                      image: dish.productImages[0],
+                    });
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
                   className="absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-6 rounded-4xl
                    bg-primary text-white font-bold transition-all duration-300
                    opacity-0 group-hover:opacity-100 cursor-pointer"

@@ -14,6 +14,7 @@ import MemberService from "../../services/MemberService";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveProductInfoPage } from "./selector";
 import { serverApi } from "../../lib/config";
+import { useApp } from "../../hooks/useApp";
 
 /**Redux Slice & Selector**/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -28,6 +29,7 @@ function ProductInfo() {
     actionDispatch(useDispatch());
   const { id } = useParams();
   const { chosenProduct, restaurant } = useSelector(retrieveProductInfoPage);
+  const { onAdd } = useApp();
 
   useEffect(() => {
     if (!id) return;
@@ -64,7 +66,7 @@ function ProductInfo() {
         </figure>
 
         {/* info */}
-        <div className="flex-1 flex flex-col gap-10 py-5 px-6 bg-base-200 border rounded-2xl shadow">
+        <div className="flex-1 flex flex-col gap-10 py-5 px-6 bg-card border rounded-2xl shadow">
           {/* main title */}
           <div>
             <h2 className="font-bold text-4xl mb-2">
@@ -129,6 +131,17 @@ function ProductInfo() {
             </div>
 
             <button
+              onClick={(e) => {
+                onAdd({
+                  _id: chosenProduct?._id,
+                  quantity: 1,
+                  name: chosenProduct?.productName,
+                  price: chosenProduct?.productPrice,
+                  image: chosenProduct?.productImages[0],
+                });
+                e.stopPropagation();
+                e.preventDefault();
+              }}
               className="py-2 px-6 rounded-4xl shadow
                bg-primary text-white font-bold transition-all duration-300
                cursor-pointer hover:scale-105 hover:shadow-xl sm:m-0 mt-4"

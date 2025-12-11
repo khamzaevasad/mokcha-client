@@ -1,43 +1,12 @@
 import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
+import { serverApi } from "../../lib/config";
+import { useApp } from "../../hooks/useApp";
 
 export default function Basket() {
+  const { cartItems } = useApp();
+
   const [open, setOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Kebab",
-      price: 10,
-      quantity: 1,
-      img: "/img/fresh.webp",
-    },
-    {
-      id: 2,
-      name: "Burger",
-      price: 8,
-      quantity: 2,
-      img: "/img/fresh.webp",
-    },
-  ]);
-
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  const removeItem = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const updateQuantity = (id: number, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
 
   return (
     <div className="relative">
@@ -72,18 +41,18 @@ export default function Basket() {
               <>
                 <div className="max-h-72 overflow-y-auto divide-y divide-gray-100">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center py-4 gap-3">
+                    <div
+                      key={item._id}
+                      className="flex items-center py-4 gap-3"
+                    >
                       {/* Remove button */}
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="text-gray-400 hover:text-red-500 transition"
-                      >
+                      <button className="text-gray-400 hover:text-red-500 transition">
                         <X size={17} />
                       </button>
 
                       {/* Image */}
                       <img
-                        src={item.img}
+                        src={`${serverApi}/${item.image}`}
                         alt={item.name}
                         className="w-14 h-14 object-cover rounded-xl shadow-sm"
                       />
@@ -99,14 +68,12 @@ export default function Basket() {
                       {/* Quantity control */}
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => updateQuantity(item.id, -1)}
                           className="w-8 h-8 flex items-center justify-center
                     bg-gray-100 hover:bg-gray-200 text-primary rounded-lg transition"
                         >
                           −
                         </button>
                         <button
-                          onClick={() => updateQuantity(item.id, 1)}
                           className="w-8 h-8 flex items-center justify-center
                     bg-primary text-white rounded-lg hover:opacity-90 transition"
                         >
@@ -120,7 +87,7 @@ export default function Basket() {
                 {/* Footer section */}
                 <div className="border-t pt-4 mt-4 flex items-center justify-between">
                   <span className="font-bold text-lg text-gray-800">
-                    Total: ${total.toFixed(2)}
+                    Total:
                   </span>
 
                   <button
