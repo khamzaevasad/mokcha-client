@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { CartItem } from "../lib/types/search";
+import { showSuccess } from "../utils/toastService";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   // basket state
@@ -34,6 +35,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setCartItems(updated);
     localStorage.setItem("cartData", JSON.stringify(updated));
+    showSuccess("Product added to cart");
   };
 
   return (
