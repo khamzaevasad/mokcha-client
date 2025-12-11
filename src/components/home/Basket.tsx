@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShoppingCart, Trash2, X } from "lucide-react";
 import { serverApi } from "../../lib/config";
 import { useApp } from "../../hooks/useApp";
@@ -6,8 +6,27 @@ import { CartItem } from "../../lib/types/search";
 
 export default function Basket() {
   const { cartItems, onAdd, onDelete, onDeleteAll, onRemove } = useApp();
-
   const [open, setOpen] = useState(false);
+  const basketRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        basketRef.current &&
+        event.target instanceof Node &&
+        !basketRef.current.contains(event.target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   const itemPrice = cartItems.reduce(
     (acc: number, curVal: CartItem) => acc + curVal.quantity * curVal.price,
@@ -18,7 +37,7 @@ export default function Basket() {
   const totalPrice = (itemPrice + shippingCost).toFixed(1);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={basketRef}>
       {/* CART ICON */}
       <button
         className="relative p-2 cursor-pointer hover:opacity-80 rounded-full transition"
