@@ -53,47 +53,62 @@ export default function Basket() {
           </span>
         )}
       </button>
-
       {/* CART DROPDOWN */}
       {open && (
-        <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-2xl border border-gray-100 z-50 animate-fadeIn">
+        <div
+          className={`
+      bg-white shadow-xl rounded-2xl border border-gray-100 z-50 animate-fadeIn
+      w-80 mt-2
+      absolute right-0
+      max-sm:fixed max-sm:top-20 max-sm:left-1/2 max-sm:-translate-x-1/2
+    `}
+        >
           <div className="p-4">
             {cartItems.length === 0 ? (
-              <div className="text-center text-gray-500 py-6">
+              <div className="text-center text-gray-500 py-8">
                 🛒 Cart is empty!
               </div>
             ) : (
               <>
-                <div className="max-h-64 overflow-y-auto divide-y divide-gray-100">
+                <div className="max-h-72 overflow-y-auto divide-y divide-gray-100">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center py-3">
+                    <div key={item.id} className="flex items-center py-4 gap-3">
+                      {/* Remove button */}
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="text-gray-400 hover:text-red-500"
+                        className="text-gray-400 hover:text-red-500 transition"
                       >
-                        <X size={18} />
+                        <X size={17} />
                       </button>
+
+                      {/* Image */}
                       <img
                         src={item.img}
                         alt={item.name}
-                        className="w-12 h-12 object-cover rounded-lg mx-3"
+                        className="w-14 h-14 object-cover rounded-xl shadow-sm"
                       />
+
+                      {/* Name + price */}
                       <div className="flex-1 text-primary">
-                        <p className="font-medium">{item.name}</p>
-                        <p className="text-sm text-primary">
+                        <p className="font-semibold text-base">{item.name}</p>
+                        <p className="text-sm text-gray-600">
                           ${item.price} × {item.quantity}
                         </p>
                       </div>
+
+                      {/* Quantity control */}
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="px-2 py-1 bg-primary rounded cursor-pointer"
+                          className="w-8 h-8 flex items-center justify-center
+                    bg-gray-100 hover:bg-gray-200 text-primary rounded-lg transition"
                         >
                           −
                         </button>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="px-2 py-1 bg-primary rounded cursor-pointer"
+                          className="w-8 h-8 flex items-center justify-center
+                    bg-primary text-white rounded-lg hover:opacity-90 transition"
                         >
                           +
                         </button>
@@ -102,12 +117,18 @@ export default function Basket() {
                   ))}
                 </div>
 
-                {/* FOOTER */}
-                <div className="border-t mt-3 pt-3 flex justify-between items-center">
-                  <span className="font-semibold text-gray-700">
+                {/* Footer section */}
+                <div className="border-t pt-4 mt-4 flex items-center justify-between">
+                  <span className="font-bold text-lg text-gray-800">
                     Total: ${total.toFixed(2)}
                   </span>
-                  <button className="btn bg-primary text-white hover:opacity-80 transition">
+
+                  <button
+                    className="
+              px-4 py-2 bg-primary text-white font-medium rounded-xl
+              shadow hover:opacity-90 transition
+            "
+                  >
                     Order
                   </button>
                 </div>
