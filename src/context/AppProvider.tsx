@@ -45,12 +45,12 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     );
 
     let updated;
-    if (exist?.quantity) {
+    if (exist.quantity) {
       updated = cartItems.filter((item: CartItem) => item._id !== input._id);
     } else {
       updated = cartItems.map((item: CartItem) =>
         item._id === input._id
-          ? { ...exist, quantity: exist?.quantity - 1 }
+          ? { ...exist, quantity: exist.quantity - 1 }
           : item
       );
     }
