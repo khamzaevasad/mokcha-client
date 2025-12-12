@@ -6,6 +6,7 @@ import { LogInIcon, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { motion } from "framer-motion";
+import LoginSignupModal from "./LoginSignupModal";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,10 +74,15 @@ function Navbar() {
           <div className="navbar-end gap-3 text-white text-xl">
             <Basket />
             {!authMember ? (
-              <button className="bg-primary text-sm py-1.5 px-3 rounded-2xl transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-xl">
-                <LogInIcon className="text-xs mr-2 hidden md:inline" />
-                Login
-              </button>
+              <>
+                <label
+                  htmlFor="login_modal"
+                  className="bg-primary text-sm py-1.5 px-3 rounded-2xl transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-xl"
+                >
+                  <LogInIcon className="text-xs mr-2 hidden md:inline" />
+                  Login
+                </label>
+              </>
             ) : (
               <Avatar src="/broken-image.jpg" className="cursor-pointer" />
             )}
@@ -89,6 +95,8 @@ function Navbar() {
 
       {/* ResponsiveMenu */}
       <ResponsiveMenu open={open} authMember={authMember} />
+
+      <LoginSignupModal id="login_modal" mode="login" />
     </>
   );
 }
