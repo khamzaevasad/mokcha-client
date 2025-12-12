@@ -1,21 +1,108 @@
 import { useState, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { CartItem } from "../lib/types/search";
-import { showInfo, showSuccess } from "../utils/toastService";
+import { showError, showInfo, showSuccess } from "../utils/toastService";
+import { Messages } from "../lib/config";
+import { LoginInput, Member, MemberInput } from "../lib/types/member";
+import MemberService from "../services/MemberService";
+import Cookies from "universal-cookie";
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
+  // Cookies logic
+  const cookies = new Cookies();
+  if (!cookies.get("accessToken")) localStorage.removeItem("memberData");
+
+  const [authMember, setAuthMember] = useState<Member | null>(
+    localStorage.getItem("memberData")
+      ? JSON.parse(localStorage.getItem("memberData") as string)
+      : null
+  );
+  console.log("=== verify ===");
+
   // basket state
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // user auth
+  // auth state
+  const [memberNick, setMemberNick] = useState<string>("");
+  const [memberPassword, setMemberPassword] = useState<string>("");
+  const [memberPhone, setMemberPhone] = useState<string>("");
+
+  // global login state
+  const [isLogin, setIsLogin] = useState(false);
+
+  // auth input
+  const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemberNick(e.target.value);
+  };
+
+  const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemberPhone(e.target.value);
+  };
+
+  const handleMemberPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemberPassword(e.target.value);
+  };
 
   useEffect(() => {
     // basket
     const cart = localStorage.getItem("cartData");
     if (cart) setCartItems(JSON.parse(cart));
-
-    // user auth
   }, []);
+
+  // auth signup request
+  const handleSignupRequest = async () => {
+    try {
+      console.log("input", memberNick, memberPhone, memberPassword);
+      const isFulfill =
+        memberNick !== "" && memberPassword !== "" && memberPhone !== "";
+      if (!isFulfill) throw new Error(Messages.error3);
+
+      const signupInput: MemberInput = {
+        memberNick: memberNick,
+        memberPhone: memberPhone,
+        memberPassword: memberPassword,
+      };
+
+      const member = new MemberService();
+      /**const result =**/ await member.signup(signupInput);
+      showSuccess("Signup successful");
+    } catch (err: any) {
+      console.log("ERROR", err);
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
+    }
+  };
+
+  // auth login request
+  const handleLoginRequest = async () => {
+    try {
+      const isFulfill = memberNick !== "" && memberPassword !== "";
+      if (!isFulfill) throw new Error(Messages.error3);
+
+      const loginInput: LoginInput = {
+        memberNick: memberNick,
+        memberPassword: memberPassword,
+      };
+
+      const member = new MemberService();
+      /**const result =**/ await member.login(loginInput);
+      showSuccess("Login successful");
+    } catch (err: any) {
+      console.log("ERROR", err);
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
+    }
+  };
 
   // basketAdd
   const onAdd = (input: CartItem) => {
@@ -78,7 +165,31 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AppContext.Provider
-      value={{ cartItems, onAdd, onDeleteAll, onRemove, onDelete }}
+      value={{
+        cartItems,
+        onAdd,
+        onDeleteAll,
+        onRemove,
+        onDelete,
+
+        memberNick,
+        setMemberNick,
+        handleUserName,
+
+        memberPhone,
+        setMemberPhone,
+        handlePhone,
+
+        authMember,
+        setAuthMember,
+        memberPassword,
+        setMemberPassword,
+        handleMemberPassword,
+        handleSignupRequest,
+        handleLoginRequest,
+        isLogin,
+        setIsLogin,
+      }}
     >
       {children}
     </AppContext.Provider>
