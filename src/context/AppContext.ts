@@ -28,12 +28,10 @@ export interface AppContextType {
 
   handleSignupRequest: () => void;
   handleLoginRequest: () => void;
+  handleLogoutRequest: () => void;
 
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
-
-  //   user: any | null;
-  //   setUser: (user: any | null) => void;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);

@@ -1,12 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { navPath, authPath } from "../../data/navbar";
+import { navPath } from "../../data/navbar";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
+import { useApp } from "../../hooks/useApp";
 type ResponsiveMenuProps = {
   open: boolean;
-  authMember: boolean | null;
 };
-function ResponsiveMenu({ open, authMember }: ResponsiveMenuProps) {
+function ResponsiveMenu({ open }: ResponsiveMenuProps) {
+  const { authMember } = useApp();
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -24,9 +26,9 @@ function ResponsiveMenu({ open, authMember }: ResponsiveMenuProps) {
           exit={{ opacity: 0, y: -100 }}
           className="fixed top-20 left-0 w-full h-screen z-20"
         >
-          <div className="font-semibold uppercase bg-base-300 text-base-content py-10 m-6 rounded-3xl">
+          <div className="font-semibold uppercase bg-card text-foreground py-10 m-6 rounded-3xl">
             <ul className="flex flex-col justify-center items-center gap-2">
-              {navPath.map(({ id, to, label }) => (
+              {navPath(!!authMember).map(({ id, to, label }) => (
                 <NavLink
                   className={({ isActive }) =>
                     isActive ? "underline" : "text-primary"
@@ -37,20 +39,6 @@ function ResponsiveMenu({ open, authMember }: ResponsiveMenuProps) {
                   {label}
                 </NavLink>
               ))}
-
-              {authMember
-                ? authPath.map(({ id, to, label }) => (
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? "underline" : "text-primary"
-                      }
-                      key={id}
-                      to={to}
-                    >
-                      {label}
-                    </NavLink>
-                  ))
-                : null}
             </ul>
           </div>
         </motion.div>

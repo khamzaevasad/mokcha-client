@@ -64,7 +64,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       };
 
       const member = new MemberService();
-      /**const result =**/ await member.signup(signupInput);
+      const result = await member.signup(signupInput);
+      setAuthMember(result);
       showSuccess("Signup successful");
     } catch (err: any) {
       console.log("ERROR", err);
@@ -90,8 +91,28 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       };
 
       const member = new MemberService();
-      /**const result =**/ await member.login(loginInput);
+      const result = await member.login(loginInput);
+      setAuthMember(result);
       showSuccess("Login successful");
+    } catch (err: any) {
+      console.log("ERROR", err);
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
+    }
+  };
+
+  // handleLogoutRequest
+  const handleLogoutRequest = async () => {
+    try {
+      const member = new MemberService();
+      await member.logout();
+      showSuccess("Logout successful");
+      setAuthMember(null);
     } catch (err: any) {
       console.log("ERROR", err);
       const msg =
@@ -187,6 +208,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         handleMemberPassword,
         handleSignupRequest,
         handleLoginRequest,
+        handleLogoutRequest,
         isLogin,
         setIsLogin,
       }}

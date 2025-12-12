@@ -13,6 +13,12 @@ const LoginSignupModal: FC<LoginSignupModalProps> = ({ id, mode }) => {
     handlePhone,
     handleSignupRequest,
     handleLoginRequest,
+    setMemberNick,
+    setMemberPassword,
+    setMemberPhone,
+    memberNick,
+    memberPassword,
+    memberPhone,
   } = useApp();
   const loginMode = mode === "login";
 
@@ -24,15 +30,18 @@ const LoginSignupModal: FC<LoginSignupModalProps> = ({ id, mode }) => {
 
   const handleAuthSubmit = async () => {
     if (loginMode) {
-      await handleLoginRequest();
+      handleLoginRequest();
     } else {
-      await handleSignupRequest();
+      handleSignupRequest();
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await handleAuthSubmit();
+    setMemberNick("");
+    setMemberPassword("");
+    setMemberPhone("");
     closeModal();
   };
 
@@ -52,6 +61,7 @@ const LoginSignupModal: FC<LoginSignupModalProps> = ({ id, mode }) => {
                 User Name
               </label>
               <input
+                value={memberNick}
                 onChange={handleUserName}
                 type="text"
                 className="text-foreground w-full input rounded-xl border border-white/20 bg-white/10 backdrop-blur-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted-foreground"
@@ -65,6 +75,7 @@ const LoginSignupModal: FC<LoginSignupModalProps> = ({ id, mode }) => {
                   Phone Number
                 </label>
                 <input
+                  value={memberPhone}
                   onChange={handlePhone}
                   type="text"
                   className="text-foreground w-full input rounded-xl border border-white/20 bg-white/10 backdrop-blur-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted-foreground"
@@ -79,6 +90,7 @@ const LoginSignupModal: FC<LoginSignupModalProps> = ({ id, mode }) => {
                 Password
               </label>
               <input
+                value={memberPassword}
                 onChange={handleMemberPassword}
                 type="password"
                 className="text-foreground w-full input rounded-xl border border-white/20 bg-white/10 backdrop-blur-lg focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted-foreground"

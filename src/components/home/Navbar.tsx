@@ -1,12 +1,13 @@
-import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { navPath, authPath } from "../../data/navbar";
+import { navPath } from "../../data/navbar";
 import Basket from "./Basket";
 import { LogInIcon, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { motion } from "framer-motion";
 import LoginSignupModal from "./LoginSignupModal";
+import { useApp } from "../../hooks/useApp";
+import AvatarDropdown from "./AvatarDropdown";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,7 +20,7 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const authMember = false;
+  const { authMember } = useApp();
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,7 +47,7 @@ function Navbar() {
 
           {/* center */}
           <div className="navbar-center gap-7 text-white text-xl hidden md:flex">
-            {navPath.map(({ id, to, label }) => (
+            {navPath(!!authMember).map(({ id, to, label }) => (
               <NavLink
                 className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-120 hover:bg-muted/60 text-primary bg-primary/10"
                 key={id}
@@ -55,19 +56,6 @@ function Navbar() {
                 {label}
               </NavLink>
             ))}
-
-            {/* auth */}
-            {authMember
-              ? authPath.map(({ id, to, label }) => (
-                  <NavLink
-                    className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-120 hover:bg-muted/60 text-primary bg-primary/10"
-                    key={id}
-                    to={to}
-                  >
-                    {label}
-                  </NavLink>
-                ))
-              : null}
           </div>
 
           {/* end */}
@@ -84,7 +72,9 @@ function Navbar() {
                 </label>
               </>
             ) : (
-              <Avatar src="/broken-image.jpg" className="cursor-pointer" />
+              <>
+                <AvatarDropdown />
+              </>
             )}
             <div className="md:hidden" onClick={() => setOpen(!open)}>
               <Menu className="cursor-pointer text-primary" />
@@ -94,7 +84,7 @@ function Navbar() {
       </motion.nav>
 
       {/* ResponsiveMenu */}
-      <ResponsiveMenu open={open} authMember={authMember} />
+      <ResponsiveMenu open={open} />
 
       <LoginSignupModal id="login_modal" mode="login" />
     </>
