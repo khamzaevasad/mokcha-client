@@ -1,4 +1,6 @@
+import FinishedOrders from "../../components/order/FinishedOrders";
 import PausedOrders from "../../components/order/PausedOrders";
+import ProcessOrder from "../../components/order/ProcessOrders";
 
 function OrderPage() {
   return (
@@ -21,8 +23,8 @@ function OrderPage() {
           className="tab text-foreground font-bold"
           aria-label="Process orders"
         />
-        <div className="tab-content border-black/10 shadow bg-background p-1">
-          Tab content 2
+        <div className="tab-content p-1">
+          <ProcessOrder />
         </div>
 
         <input
@@ -31,8 +33,8 @@ function OrderPage() {
           className="tab text-foreground font-bold"
           aria-label="Finished orders"
         />
-        <div className="tab-content border-black/10 shadow bg-background p-1">
-          Tab content 3
+        <div className="tab-content p-1">
+          <FinishedOrders />
         </div>
       </div>
     </div>
