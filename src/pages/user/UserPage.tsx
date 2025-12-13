@@ -4,11 +4,15 @@ import { Settings } from "../../components/user/Settings";
 import { OrderHistory } from "../../components/user/OrderHistory";
 import { useApp } from "../../hooks/useApp";
 import { serverApi } from "../../lib/config";
+import { Navigate } from "react-router-dom";
 
 export default function UserPage() {
   const [activeTab, setActiveTab] = useState("settings");
   const { authMember } = useApp();
-  // TODO: Fetch user data from Redux store or API
+
+  if (!authMember) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 py-12">

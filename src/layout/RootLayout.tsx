@@ -8,7 +8,7 @@ function RootLayout() {
       <header className="bg-base-300">
         <Navbar />
       </header>
-      <main className="flex-1 pt-[80px]">
+      <main className="flex-1 pt-[40px]">
         <section>
           <Outlet />
         </section>

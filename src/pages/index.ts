@@ -21,3 +21,6 @@ export { default as RecommendedDishes } from "../components/product/RecommendedD
 export { default as Help } from "../components/help/Help";
 export { default as Iframe } from "../components/home/Iframe";
 export { default as About } from "../components/home/About";
+export { default as PausedOrders } from "../components/order/PausedOrders";
+export { default as ProcessOrders } from "../components/order/ProcessOrders";
+export { default as FinishedOrders } from "../components/order/FinishedOrders";

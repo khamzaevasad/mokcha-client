@@ -11,17 +11,3 @@ export const retrieveHomePage = createSelector(selectHomePage, (homePage) => {
     topUsers: homePage.topUsers,
   };
 });
-
-// export const retrievePopularDishes = createSelector(
-//   selectHomePage,
-//   (HomePage) => {
-//     return HomePage.popularDishes;
-//   }
-// );
-// export const retrieveNewDishes = createSelector(selectHomePage, (HomePage) => {
-//   return HomePage.newDishes;
-// });
-
-// export const retrieveTopUsers = createSelector(selectHomePage, (HomePage) => {
-//   return HomePage.topUsers;
-// });

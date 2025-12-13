@@ -30,7 +30,6 @@ class MemberService {
     try {
       const url = this.path + "/member/restaurant";
       const result = await axios.get(url);
-      console.log(result.data);
       return result.data;
     } catch (err) {
       console.log("ERROR getRestaurant", err);
@@ -43,7 +42,6 @@ class MemberService {
     try {
       const url = this.path + "/member/signup";
       const result = await axios.post(url, input, { withCredentials: true });
-      console.log("signup", result.data);
       const member: Member = result.data.member;
 
       localStorage.setItem("memberData", JSON.stringify(member));
@@ -61,7 +59,6 @@ class MemberService {
     try {
       const url = this.path + "/member/login";
       const result = await axios.post(url, input, { withCredentials: true });
-      console.log("login", result.data);
       const member: Member = result.data.member;
 
       localStorage.setItem("memberData", JSON.stringify(member));
@@ -88,7 +85,6 @@ class MemberService {
   }
 
   // memberUpdate
-
   public async updateMember(input: MemberUpdateInput): Promise<Member> {
     try {
       const formData = new FormData();
@@ -107,7 +103,6 @@ class MemberService {
         },
       });
 
-      console.log("updateMember", result);
       const member: Member = result.data;
       localStorage.setItem("memberData", JSON.stringify(member));
       return member;

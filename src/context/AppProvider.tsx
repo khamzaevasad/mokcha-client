@@ -110,7 +110,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   // auth signup request
   const handleSignupRequest = async () => {
     try {
-      console.log("input", memberNick, memberPhone, memberPassword);
       const isFulfill =
         memberNick !== "" && memberPassword !== "" && memberPhone !== "";
       if (!isFulfill) throw new Error(Messages.error3);

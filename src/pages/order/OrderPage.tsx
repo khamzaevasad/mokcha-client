@@ -1,7 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import FinishedOrders from "../../components/order/FinishedOrders";
-import PausedOrders from "../../components/order/PausedOrders";
-import ProcessOrder from "../../components/order/ProcessOrders";
+import { PausedOrders, FinishedOrders, ProcessOrders } from "../index";
 import { Order, OrderInquiry } from "../../lib/types/orders";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import { useDispatch } from "react-redux";
@@ -80,7 +78,7 @@ function OrderPage() {
           onChange={() => setActiveTab("process")}
         />
         <div className="tab-content p-1">
-          <ProcessOrder setActiveTab={setActiveTab} />
+          <ProcessOrders setActiveTab={setActiveTab} />
         </div>
 
         <input

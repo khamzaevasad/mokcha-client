@@ -11,6 +11,7 @@ import AvatarDropdown from "./AvatarDropdown";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +22,6 @@ function Navbar() {
   }, []);
 
   const { authMember } = useApp();
-  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -49,9 +49,27 @@ function Navbar() {
           <div className="navbar-center gap-7 text-white text-xl hidden md:flex">
             {navPath(!!authMember).map(({ id, to, label }) => (
               <NavLink
-                className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-120 hover:bg-muted/60 text-primary bg-primary/10"
                 key={id}
                 to={to}
+                className={({ isActive }) =>
+                  `
+    relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
+    text-primary
+    ${
+      isActive
+        ? "bg-gray-200/90 text-gray-800"
+        : "text-gray-600 hover:text-gray-800"
+    }
+    hover:bg-gray-100/60
+    after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2
+    after:w-1 after:h-1 after:rounded-full after:bg-primary after:transition-all after:duration-300
+    ${
+      isActive
+        ? "after:opacity-100 after:scale-100"
+        : "after:opacity-0 after:scale-0"
+    }
+    `
+                }
               >
                 {label}
               </NavLink>
@@ -76,7 +94,7 @@ function Navbar() {
                 <AvatarDropdown />
               </>
             )}
-            <div className="md:hidden" onClick={() => setOpen(!open)}>
+            <div className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
               <Menu className="cursor-pointer text-primary" />
             </div>
           </div>
@@ -84,7 +102,7 @@ function Navbar() {
       </motion.nav>
 
       {/* ResponsiveMenu */}
-      <ResponsiveMenu open={open} />
+      <ResponsiveMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <LoginSignupModal id="login_modal" mode="login" />
     </>

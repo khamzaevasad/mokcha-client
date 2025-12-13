@@ -1,40 +1,16 @@
 import { Package, CheckCircle, Clock } from "lucide-react";
+import { useSelector } from "react-redux";
+import { retrieveOrdersPage } from "../../pages/order/selector";
+import { Order } from "../../lib/types/orders";
 
 export function OrderHistory() {
-  // TODO: Fetch finished orders from API
-  const finishedOrders = [
-    {
-      _id: "693d4420258a9441c2dd1022",
-      orderTotal: 45.5,
-      orderDelivery: 5.0,
-      createdAt: "2025-12-13T10:46:56.692Z",
-      orderItems: [
-        { itemQuantity: 2, productName: "Margherita Pizza" },
-        { itemQuantity: 1, productName: "Caesar Salad" },
-        { itemQuantity: 3, productName: "Garlic Bread" },
-      ],
-    },
-    {
-      _id: "693d4420258a9441c2dd1023",
-      orderTotal: 32.0,
-      orderDelivery: 5.0,
-      createdAt: "2025-12-12T14:30:00.000Z",
-      orderItems: [
-        { itemQuantity: 1, productName: "Beef Burger" },
-        { itemQuantity: 2, productName: "French Fries" },
-      ],
-    },
-    {
-      _id: "693d4420258a9441c2dd1024",
-      orderTotal: 28.0,
-      orderDelivery: 5.0,
-      createdAt: "2025-12-10T09:15:00.000Z",
-      orderItems: [
-        { itemQuantity: 1, productName: "Chicken Wrap" },
-        { itemQuantity: 1, productName: "Smoothie" },
-      ],
-    },
-  ];
+  const { finishedOrders } = useSelector(retrieveOrdersPage);
+
+  const getProductName = (orderId: string, productId: string) => {
+    const order = finishedOrders.find((o: Order) => o._id === orderId);
+    const product = order?.productData?.find((p) => p._id === productId);
+    return product?.productName || "Unknown Product";
+  };
 
   return (
     <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -48,7 +24,7 @@ export function OrderHistory() {
 
       {finishedOrders.length > 0 ? (
         <div className="space-y-4">
-          {finishedOrders.map((order, index) => (
+          {finishedOrders.map((order) => (
             <div
               key={order._id}
               className="border border-gray-100 rounded-xl p-5 hover:border-green-200 hover:bg-green-50/30 transition-all duration-200 group"
@@ -86,17 +62,23 @@ export function OrderHistory() {
 
               <div className="pl-13">
                 <ul className="space-y-2">
-                  {order.orderItems.map((item, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center gap-2 text-sm text-gray-600"
-                    >
-                      <span className="w-5 h-5 rounded-md bg-gray-100 flex items-center justify-center text-xs font-semibold text-gray-700">
-                        {item.itemQuantity}
-                      </span>
-                      <span>{item.productName}</span>
-                    </li>
-                  ))}
+                  {order.orderItems.map((item, index) => {
+                    const productName = getProductName(
+                      order._id,
+                      item.productId
+                    );
+                    return (
+                      <li
+                        key={index}
+                        className="flex items-center gap-2 text-sm text-gray-600"
+                      >
+                        <span className="w-5 h-5 rounded-md bg-gray-100 flex items-center justify-center text-xs font-semibold text-gray-700">
+                          {item.itemQuantity}
+                        </span>
+                        <span>{productName}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>
