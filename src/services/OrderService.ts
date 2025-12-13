@@ -1,7 +1,12 @@
 import axios from "axios";
 import { serverApi } from "../lib/config";
 import { CartItem } from "../lib/types/search";
-import { Order, OrderInquiry, OrderItemInput } from "../lib/types/orders";
+import {
+  Order,
+  OrderInquiry,
+  OrderItemInput,
+  OrderUpdateInput,
+} from "../lib/types/orders";
 
 class OrderService {
   private readonly path: string;
@@ -25,7 +30,6 @@ class OrderService {
         withCredentials: true,
       });
 
-      console.log("createOrder:", result);
       return result.data;
     } catch (err) {
       console.log("ERROR: createOrder", err);
@@ -45,10 +49,21 @@ class OrderService {
         },
         withCredentials: true,
       });
-      console.log("getMyOrders", result);
       return result.data;
     } catch (err) {
       console.log("ERROR: getMyOrders", err);
+      throw err;
+    }
+  }
+
+  // updateOrder
+  public async updateOrder(input: OrderUpdateInput): Promise<Order[]> {
+    try {
+      const url = `${this.path}/order/update`;
+      const result = await axios.post(url, input, { withCredentials: true });
+      return result.data;
+    } catch (err) {
+      console.log("ERROR: updateOrder", err);
       throw err;
     }
   }

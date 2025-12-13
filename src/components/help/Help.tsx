@@ -78,7 +78,7 @@ function Help() {
                 Frequently Asked Questions
               </h2>
               <details
-                className="collapse bg-base-100 border border-base-300"
+                className="collapse bg-card border border-base/20"
                 name="my-accordion-det-1"
                 open
               >
@@ -90,7 +90,7 @@ function Help() {
                 </div>
               </details>
               <details
-                className="collapse bg-base-100 border border-base-300"
+                className="collapse bg-card border border-base/20"
                 name="my-accordion-det-1"
               >
                 <summary className="collapse-title font-semibold">
@@ -101,7 +101,7 @@ function Help() {
                 </div>
               </details>
               <details
-                className="collapse bg-base-100 border border-base-300"
+                className="collapse bg-card border border-base/20"
                 name="my-accordion-det-1"
               >
                 <summary className="collapse-title font-semibold">
@@ -129,23 +129,23 @@ function Help() {
                   <label className="label">Your Name</label>
                   <input
                     type="text"
-                    className="input w-full border"
+                    className="input w-full border border-base-100 bg-white"
                     placeholder="Type your name here"
                   />
                   <label className="label">Your email</label>
                   <input
                     type="email"
-                    className="input w-full border"
+                    className="input w-full border border-base-100 bg-white"
                     placeholder="Type your email here"
                   />
                   <label className="label">Message</label>
 
                   <textarea
                     placeholder="Bio"
-                    className="textarea textarea-md w-full border"
+                    className="textarea textarea-md w-full border border-base-100 bg-white"
                   ></textarea>
                   <button className="bg-primary py-3 px-5 rounded-2xl mt-4 text-white text-xl">
-                    Login
+                    Send
                   </button>
                 </fieldset>
               </form>

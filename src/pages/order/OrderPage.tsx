@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { OrderStatus } from "../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
+import { useApp } from "../../hooks/useApp";
 
 /**Redux Slice & Selector**/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -17,6 +18,11 @@ const actionDispatch = (dispatch: Dispatch) => ({
 });
 
 function OrderPage() {
+  const [activeTab, setActiveTab] = useState<"paused" | "process" | "finished">(
+    "paused"
+  );
+
+  const { orderBuilder } = useApp();
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
 
@@ -44,7 +50,7 @@ function OrderPage() {
       .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
       .then((data) => setFinishedOrders(data))
       .catch((err) => console.log(err));
-  }, [orderInquiry]);
+  }, [orderInquiry, orderBuilder]);
 
   return (
     <div className="align-elements my-10">
@@ -54,10 +60,11 @@ function OrderPage() {
           name="my_tabs_2"
           className="tab text-foreground font-bold"
           aria-label="Paused orders"
-          defaultChecked
+          checked={activeTab === "paused"}
+          onChange={() => setActiveTab("paused")}
         />
         <div className="tab-content bg-background p-1">
-          <PausedOrders />
+          <PausedOrders setActiveTab={setActiveTab} />
         </div>
 
         <input
@@ -65,9 +72,11 @@ function OrderPage() {
           name="my_tabs_2"
           className="tab text-foreground font-bold"
           aria-label="Process orders"
+          checked={activeTab === "process"}
+          onChange={() => setActiveTab("process")}
         />
         <div className="tab-content p-1">
-          <ProcessOrder />
+          <ProcessOrder setActiveTab={setActiveTab} />
         </div>
 
         <input
@@ -75,6 +84,8 @@ function OrderPage() {
           name="my_tabs_2"
           className="tab text-foreground font-bold"
           aria-label="Finished orders"
+          checked={activeTab === "finished"}
+          onChange={() => setActiveTab("finished")}
         />
         <div className="tab-content p-1">
           <FinishedOrders />

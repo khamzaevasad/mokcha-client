@@ -1,13 +1,53 @@
 import { useSelector } from "react-redux";
 import { retrieveOrdersPage } from "../../pages/order/selector";
-import { Order } from "../../lib/types/orders";
-import { serverApi } from "../../lib/config";
+import { Order, OrderUpdateInput } from "../../lib/types/orders";
+import { Messages, serverApi } from "../../lib/config";
 import { CheckSquare, Clock, Plus, X } from "lucide-react";
+import { useApp } from "../../hooks/useApp";
+import { OrderStatus } from "../../lib/enums/order.enum";
+import OrderService from "../../services/OrderService";
+import { showError } from "../../utils/toastService";
+import { T } from "../../lib/types/common";
 
-function ProcessOrder() {
+type TabType = "paused" | "process" | "finished";
+
+interface ProcessOrdersProps {
+  setActiveTab: (tab: TabType) => void;
+}
+function ProcessOrder({ setActiveTab }: ProcessOrdersProps) {
+  const { authMember, setOrderBuilder } = useApp();
   const { processOrders } = useSelector(retrieveOrdersPage);
 
   // handlers
+
+  const finishOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+      // Payment Process
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.FINISH,
+      };
+      const confirmation = window.confirm("Have you received your order?");
+      if (confirmation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        setActiveTab("finished");
+        setOrderBuilder(new Date());
+      }
+    } catch (err: any) {
+      console.log(err);
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
+    }
+  };
+
   const calculateSubtotal = (order: Order): number => {
     return order.orderItems.reduce(
       (sum, item) => sum + item.itemPrice * item.itemQuantity,
@@ -146,7 +186,11 @@ function ProcessOrder() {
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <button className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-primary-foreground font-semibold btn border-0 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 group">
+                        <button
+                          value={order._id}
+                          onClick={finishOrderHandler}
+                          className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-primary-foreground font-semibold btn border-0 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 group"
+                        >
                           <CheckSquare
                             size={16}
                             className="group-hover:translate-x-0.5 transition-transform"

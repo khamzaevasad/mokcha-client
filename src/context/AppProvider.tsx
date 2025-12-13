@@ -21,14 +21,78 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   // basket state
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  useEffect(() => {
+    // basket
+    const cart = localStorage.getItem("cartData");
+    if (cart) setCartItems(JSON.parse(cart));
+  }, []);
+
+  // basketAdd
+  const onAdd = (input: CartItem) => {
+    const exist: CartItem | undefined = cartItems.find(
+      (item: CartItem) => item._id === input._id
+    );
+
+    let updated;
+    if (exist) {
+      updated = cartItems.map((item: CartItem) =>
+        item._id === input._id
+          ? { ...exist, quantity: exist.quantity + 1 }
+          : item
+      );
+    } else {
+      updated = [...cartItems, { ...input }];
+    }
+    setCartItems(updated);
+    localStorage.setItem("cartData", JSON.stringify(updated));
+    showSuccess("Product added to cart");
+  };
+
+  // baskedRemove
+  const onRemove = (input: CartItem) => {
+    const exist: any = cartItems.find(
+      (item: CartItem) => item._id === input._id
+    );
+
+    let updated;
+    if (exist.quantity === 1) {
+      updated = cartItems.filter((item: CartItem) => item._id !== input._id);
+    } else {
+      updated = cartItems.map((item: CartItem) =>
+        item._id === input._id
+          ? { ...exist, quantity: exist.quantity - 1 }
+          : item
+      );
+    }
+
+    setCartItems(updated);
+    localStorage.setItem("cartData", JSON.stringify(updated));
+  };
+
+  // baskedDelete
+  const onDelete = (input: CartItem) => {
+    const updated = cartItems.filter(
+      (item: CartItem) => item._id !== input._id
+    );
+    setCartItems(updated);
+    localStorage.setItem("cartData", JSON.stringify(updated));
+    showSuccess("Product have been deleted");
+  };
+
+  // basketDeleteAll
+  const onDeleteAll = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartData");
+    // showInfo("Cart has been cleared");
+  };
+
+  // global login state
+  const [isLogin, setIsLogin] = useState(false);
 
   // auth state
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
-
-  // global login state
-  const [isLogin, setIsLogin] = useState(false);
 
   // auth input
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,12 +106,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const handleMemberPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMemberPassword(e.target.value);
   };
-
-  useEffect(() => {
-    // basket
-    const cart = localStorage.getItem("cartData");
-    if (cart) setCartItems(JSON.parse(cart));
-  }, []);
 
   // auth signup request
   const handleSignupRequest = async () => {
@@ -125,64 +183,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // basketAdd
-  const onAdd = (input: CartItem) => {
-    const exist: CartItem | undefined = cartItems.find(
-      (item: CartItem) => item._id === input._id
-    );
-
-    let updated;
-    if (exist) {
-      updated = cartItems.map((item: CartItem) =>
-        item._id === input._id
-          ? { ...exist, quantity: exist.quantity + 1 }
-          : item
-      );
-    } else {
-      updated = [...cartItems, { ...input }];
-    }
-    setCartItems(updated);
-    localStorage.setItem("cartData", JSON.stringify(updated));
-    showSuccess("Product added to cart");
-  };
-
-  // baskedRemove
-  const onRemove = (input: CartItem) => {
-    const exist: any = cartItems.find(
-      (item: CartItem) => item._id === input._id
-    );
-
-    let updated;
-    if (exist.quantity === 1) {
-      updated = cartItems.filter((item: CartItem) => item._id !== input._id);
-    } else {
-      updated = cartItems.map((item: CartItem) =>
-        item._id === input._id
-          ? { ...exist, quantity: exist.quantity - 1 }
-          : item
-      );
-    }
-
-    setCartItems(updated);
-    localStorage.setItem("cartData", JSON.stringify(updated));
-  };
-
-  // baskedDelete
-  const onDelete = (input: CartItem) => {
-    const updated = cartItems.filter(
-      (item: CartItem) => item._id !== input._id
-    );
-    setCartItems(updated);
-    localStorage.setItem("cartData", JSON.stringify(updated));
-    showSuccess("Product have been deleted");
-  };
-
-  // basketDeleteAll
-  const onDeleteAll = () => {
-    setCartItems([]);
-    localStorage.removeItem("cartData");
-    // showInfo("Cart has been cleared");
-  };
+  // order State
+  const [orderBuilder, setOrderBuilder] = useState<Date>(new Date());
 
   return (
     <AppContext.Provider
@@ -211,6 +213,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         handleLogoutRequest,
         isLogin,
         setIsLogin,
+
+        orderBuilder,
+        setOrderBuilder,
       }}
     >
       {children}

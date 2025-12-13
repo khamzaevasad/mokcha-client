@@ -1,13 +1,82 @@
 import { X, Plus, Clock, Play, Trash2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { retrieveOrdersPage } from "../../pages/order/selector";
-import { Order } from "../../lib/types/orders";
-import { serverApi } from "../../lib/config";
+import { Order, OrderUpdateInput } from "../../lib/types/orders";
+import { Messages, serverApi } from "../../lib/config";
+import { showError } from "../../utils/toastService";
+import { T } from "../../lib/types/common";
+import { OrderStatus } from "../../lib/enums/order.enum";
+import { useApp } from "../../hooks/useApp";
+import OrderService from "../../services/OrderService";
 
-export default function PausedOrders() {
+type TabType = "paused" | "process" | "finished";
+
+interface PausedOrdersProps {
+  setActiveTab: (tab: TabType) => void;
+}
+
+export default function PausedOrders({ setActiveTab }: PausedOrdersProps) {
+  const { setOrderBuilder } = useApp();
   const { pausedOrders } = useSelector(retrieveOrdersPage);
+  const { authMember } = useApp();
 
   // handlers
+  const deleteOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.DELETE,
+      };
+      const confirmation = window.confirm("Do you want to delete the order?");
+      if (confirmation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        setOrderBuilder(new Date());
+      }
+    } catch (err: any) {
+      console.log(err);
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
+    }
+  };
+
+  const processOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+      // Payment Process
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.PROCESS,
+      };
+      const confirmation = window.confirm(
+        "Do you want to proceed with payment?"
+      );
+      if (confirmation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        setActiveTab("process");
+        setOrderBuilder(new Date());
+      }
+    } catch (err: any) {
+      console.log(err);
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
+    }
+  };
+
   const calculateSubtotal = (order: Order): number => {
     return order.orderItems.reduce(
       (sum, item) => sum + item.itemPrice * item.itemQuantity,
@@ -147,7 +216,11 @@ export default function PausedOrders() {
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <button className="bg-red-50 text-destructive border border-destructive/40 hover:bg-destructive/20 hover:border-destructive/60 font-medium btn border-0 rounded-xl shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2 group">
+                        <button
+                          value={order._id}
+                          onClick={deleteOrderHandler}
+                          className="bg-red-50 text-destructive border border-destructive/40 hover:bg-destructive/20 hover:border-destructive/60 font-medium btn border-0 rounded-xl shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2 group"
+                        >
                           <Trash2
                             size={16}
                             className="group-hover:scale-110 transition-transform"
@@ -155,7 +228,11 @@ export default function PausedOrders() {
                           Cancel
                         </button>
 
-                        <button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold btn border-0 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 group">
+                        <button
+                          value={order._id}
+                          onClick={processOrderHandler}
+                          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold btn border-0 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 group"
+                        >
                           <Play
                             size={16}
                             className="group-hover:translate-x-0.5 transition-transform"

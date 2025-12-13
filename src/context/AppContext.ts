@@ -32,6 +32,10 @@ export interface AppContextType {
 
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+
+  // orders
+  orderBuilder: Date;
+  setOrderBuilder: (input: Date) => void;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);

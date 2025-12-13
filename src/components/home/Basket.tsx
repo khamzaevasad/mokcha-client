@@ -8,8 +8,15 @@ import OrderService from "../../services/OrderService";
 import { useNavigate } from "react-router-dom";
 
 export default function Basket() {
-  const { cartItems, onAdd, onDelete, onDeleteAll, onRemove, authMember } =
-    useApp();
+  const {
+    setOrderBuilder,
+    cartItems,
+    onAdd,
+    onDelete,
+    onDeleteAll,
+    onRemove,
+    authMember,
+  } = useApp();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const basketRef = useRef<HTMLDivElement>(null);
@@ -50,10 +57,17 @@ export default function Basket() {
       const order = new OrderService();
       await order.createOrder(cartItems);
       onDeleteAll();
+      setOrderBuilder(new Date());
       navigate("/orders");
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
-      showError("Something went wrong");
+      const msg =
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "It seems an unknown error has occurred";
+
+      showError(String(msg));
     }
   };
 
