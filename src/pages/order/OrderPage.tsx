@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { OrderStatus } from "../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
 import { useApp } from "../../hooks/useApp";
+import { useNavigate } from "react-router-dom";
 
 /**Redux Slice & Selector**/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -22,9 +23,12 @@ function OrderPage() {
     "paused"
   );
 
-  const { orderBuilder } = useApp();
+  const { orderBuilder, authMember } = useApp();
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
+  const navigate = useNavigate();
+
+  if (!authMember) navigate("/");
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
