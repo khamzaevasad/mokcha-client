@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { serverApi } from "../../lib/config";
 import { ProductCollection } from "../../lib/enums/product.enum";
 import { useApp } from "../../hooks/useApp";
+import { PackageX } from "lucide-react";
 
 function ProductCards() {
   const { products } = useSelector(retrieveProductPage);
@@ -103,9 +104,14 @@ function ProductCards() {
         })
       ) : (
         <div className="grid place-items-center min-h-[400px] col-span-full">
-          <h3 className="text-center font-bold text-3xl text-error">
-            products are not available
-          </h3>
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="w-48 h-48 mb-6 opacity-60 flex items-center justify-center">
+              <PackageX className="w-24 h-24 text-gray-300" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-700 mb-2">
+              No products found
+            </h3>
+          </div>
         </div>
       )}
     </div>

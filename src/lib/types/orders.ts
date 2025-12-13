@@ -17,8 +17,8 @@ export interface Order {
   orderDelivery: number;
   orderStatus: OrderStatus;
   memberId: string;
-  createAt: Date;
-  updateAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 
   /** From aggregation **/
   orderItems: OrderItem[];

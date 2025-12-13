@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { CartItem } from "../lib/types/search";
-import { showError, showInfo, showSuccess } from "../utils/toastService";
+import { showError, showSuccess } from "../utils/toastService";
 import { Messages } from "../lib/config";
 import { LoginInput, Member, MemberInput } from "../lib/types/member";
 import MemberService from "../services/MemberService";
@@ -181,7 +181,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const onDeleteAll = () => {
     setCartItems([]);
     localStorage.removeItem("cartData");
-    showInfo("Cart has been cleared");
+    // showInfo("Cart has been cleared");
   };
 
   return (

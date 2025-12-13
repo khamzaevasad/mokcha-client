@@ -1,107 +1,58 @@
 import { X, Plus, Clock, Play, Trash2 } from "lucide-react";
-
-interface OrderItem {
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
-interface Order {
-  id: number;
-  items: OrderItem[];
-  deliveryCost: number;
-  pausedAt: Date;
-}
+import { useSelector } from "react-redux";
+import { retrieveOrdersPage } from "../../pages/order/selector";
+import { Order } from "../../lib/types/orders";
+import { serverApi } from "../../lib/config";
 
 export default function PausedOrders() {
-  const orders: Order[] = [
-    {
-      id: 1,
-      items: [
-        {
-          name: "Grilled Steak",
-          price: 10,
-          quantity: 2,
-          image: "/img/fresh.webp",
-        },
-        {
-          name: "Caesar Salad",
-          price: 8,
-          quantity: 1,
-          image: "/img/fresh.webp",
-        },
-        {
-          name: "French Fries",
-          price: 5,
-          quantity: 3,
-          image: "/img/fresh.webp",
-        },
-      ],
-      deliveryCost: 5,
-      pausedAt: new Date(Date.now() - 3600000),
-    },
-    {
-      id: 2,
-      items: [
-        {
-          name: "Margherita Pizza",
-          price: 15,
-          quantity: 1,
-          image: "/img/fresh.webp",
-        },
-        {
-          name: "Garlic Bread",
-          price: 6,
-          quantity: 2,
-          image: "/img/fresh.webp",
-        },
-      ],
-      deliveryCost: 5,
-      pausedAt: new Date(Date.now() - 7200000),
-    },
-  ];
+  const { pausedOrders } = useSelector(retrieveOrdersPage);
 
-  const calculateSubtotal = (items: OrderItem[]): number => {
-    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const calculateSubtotal = (order: Order): number => {
+    return order.orderItems.reduce(
+      (sum, item) => sum + item.itemPrice * item.itemQuantity,
+      0
+    );
   };
 
-  const calculateTotal = (items: OrderItem[], deliveryCost: number): number => {
-    return calculateSubtotal(items) + deliveryCost;
+  const calculateTotal = (order: Order): number => {
+    return calculateSubtotal(order) + order.orderDelivery;
   };
 
-  const handleProcess = (orderId: number): void => {
-    console.log(`Processing order ${orderId}`);
+  const getProductImage = (orderId: string, productId: string) => {
+    const order = pausedOrders.find((o: Order) => o._id === orderId);
+    const product = order?.productData?.find((p) => p._id === productId);
+    return product?.productImages?.[0]
+      ? `${serverApi}/${product.productImages[0]}`
+      : "/img/fresh.webp";
   };
-
-  const handleCancel = (orderId: number): void => {
-    console.log(`Canceling order ${orderId}`);
-    // Bu yerda confirm dialog qo'shishingiz mumkin
+  const getProductName = (orderId: string, productId: string) => {
+    const order = pausedOrders.find((o: Order) => o._id === orderId);
+    const product = order?.productData?.find((p) => p._id === productId);
+    return product?.productName || "Unknown Product";
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      {orders.length > 0 ? (
+      {pausedOrders.length > 0 ? (
         <div className="space-y-5">
-          {orders.map((order) => {
-            const subtotal = calculateSubtotal(order.items);
-            const total = calculateTotal(order.items, order.deliveryCost);
+          {pausedOrders?.map((order: Order, index: number) => {
+            const subtotal = calculateSubtotal(order);
+            const total = calculateTotal(order);
 
             return (
               <div
-                key={order.id}
+                key={order._id}
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300"
               >
-                {/* Header with status badge */}
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 px-6 py-3 border-b border-blue-100 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-accent" />
                     <span className="text-sm font-medium text-green-800">
-                      Paused Order #{order.id}
+                      Paused Order #{index + 1}
                     </span>
                   </div>
                   <span className="text-xs text-gray-500">
-                    {order.pausedAt.toLocaleString("en-US", {
+                    {new Date(order.createdAt).toLocaleString("en-US", {
                       month: "short",
                       day: "numeric",
                       hour: "2-digit",
@@ -110,54 +61,64 @@ export default function PausedOrders() {
                   </span>
                 </div>
 
-                {/* Order items */}
                 <div className="p-6">
                   <div className="space-y-4">
-                    {order.items.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0"
-                      >
-                        {/* Left: Image + Details */}
-                        <div className="flex items-center gap-4">
-                          <div className="relative">
-                            <img
-                              src={item.image}
-                              className="w-16 h-16 rounded-xl object-cover shadow-sm"
-                              alt={item.name}
-                            />
-                            <div className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                              {item.quantity}
+                    {order.orderItems.map((item) => {
+                      const productName = getProductName(
+                        order._id,
+                        item.productId
+                      );
+                      const productImage = getProductImage(
+                        order._id,
+                        item.productId
+                      );
+
+                      return (
+                        <div
+                          key={item._id}
+                          className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="relative">
+                              <img
+                                src={productImage}
+                                className="w-16 h-16 rounded-xl object-cover shadow-sm"
+                                alt={productName}
+                              />
+                              <div className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                                {item.itemQuantity}
+                              </div>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-gray-800">
+                                {productName}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                ${item.itemPrice.toFixed(2)} each
+                              </p>
                             </div>
                           </div>
-                          <div>
-                            <p className="font-semibold text-gray-800">
-                              {item.name}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              ${item.price.toFixed(2)} each
-                            </p>
+
+                          <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                            <span className="text-gray-500">
+                              ${item.itemPrice}
+                            </span>
+                            <X size={12} className="text-gray-400" />
+                            <span className="text-gray-500">
+                              {item.itemQuantity}
+                            </span>
+                            <span className="text-gray-400">=</span>
+                            <span className="font-bold text-gray-900">
+                              ${(item.itemPrice * item.itemQuantity).toFixed(2)}
+                            </span>
                           </div>
                         </div>
-
-                        {/* Right: Calculation */}
-                        <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                          <span className="text-gray-500">${item.price}</span>
-                          <X size={12} className="text-gray-400" />
-                          <span className="text-gray-500">{item.quantity}</span>
-                          <span className="text-gray-400">=</span>
-                          <span className="font-bold text-gray-900">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
-                  {/* Summary section */}
                   <div className="mt-6 pt-4 border-t-2 border-gray-100">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                      {/* Cost breakdown */}
                       <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <span className="text-gray-600">Subtotal</span>
@@ -169,7 +130,7 @@ export default function PausedOrders() {
                         <div className="flex items-center gap-2">
                           <span className="text-gray-600">Delivery</span>
                           <span className="font-semibold text-gray-900">
-                            ${order.deliveryCost.toFixed(2)}
+                            ${order.orderDelivery.toFixed(2)}
                           </span>
                         </div>
                         <span className="text-gray-400">=</span>
@@ -183,12 +144,8 @@ export default function PausedOrders() {
                         </div>
                       </div>
 
-                      {/* Action buttons */}
                       <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => handleCancel(order.id)}
-                          className="bg-red-50 text-destructive border border-destructive/40 hover:bg-destructive/20 hover:border-destructive/60 font-medium btn border-0 rounded-xl shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2 group"
-                        >
+                        <button className="bg-red-50 text-destructive border border-destructive/40 hover:bg-destructive/20 hover:border-destructive/60 font-medium btn border-0 rounded-xl shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2 group">
                           <Trash2
                             size={16}
                             className="group-hover:scale-110 transition-transform"
@@ -196,10 +153,7 @@ export default function PausedOrders() {
                           Cancel
                         </button>
 
-                        <button
-                          onClick={() => handleProcess(order.id)}
-                          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold btn border-0 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 group"
-                        >
+                        <button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold btn border-0 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 group">
                           <Play
                             size={16}
                             className="group-hover:translate-x-0.5 transition-transform"

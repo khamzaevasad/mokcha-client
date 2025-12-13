@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { ShoppingCart, Trash2, X } from "lucide-react";
-import { serverApi } from "../../lib/config";
+import { Messages, serverApi } from "../../lib/config";
 import { useApp } from "../../hooks/useApp";
 import { CartItem } from "../../lib/types/search";
+import { showError } from "../../utils/toastService";
+import OrderService from "../../services/OrderService";
+import { useNavigate } from "react-router-dom";
 
 export default function Basket() {
-  const { cartItems, onAdd, onDelete, onDeleteAll, onRemove } = useApp();
+  const { cartItems, onAdd, onDelete, onDeleteAll, onRemove, authMember } =
+    useApp();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const basketRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -35,6 +41,21 @@ export default function Basket() {
 
   const shippingCost: number = itemPrice < 100 ? 5 : 0;
   const totalPrice = (itemPrice + shippingCost).toFixed(1);
+
+  // handlers
+  const proceedOrderHandler = async () => {
+    try {
+      setOpen(false);
+      if (!authMember) throw new Error(Messages.error2);
+      const order = new OrderService();
+      await order.createOrder(cartItems);
+      onDeleteAll();
+      navigate("/orders");
+    } catch (err) {
+      console.log(err);
+      showError("Something went wrong");
+    }
+  };
 
   return (
     <div className="relative" ref={basketRef}>
@@ -168,7 +189,10 @@ export default function Basket() {
                     </div>
                   </div>
 
-                  <button className="cursor-pointer w-full py-3 font-semibold rounded-xl shadow-sm bg-accent text-accent-foreground transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <button
+                    onClick={proceedOrderHandler}
+                    className="cursor-pointer w-full py-3 font-semibold rounded-xl shadow-sm bg-accent text-accent-foreground transition-all hover:shadow-md hover:-translate-y-0.5"
+                  >
                     Proceed to Checkout
                   </button>
                 </div>
