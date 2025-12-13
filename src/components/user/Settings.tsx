@@ -21,7 +21,7 @@ export function Settings() {
   const [memberImage, setMemberImage] = useState<string>(
     authMember?.memberImage
       ? `${serverApi}/${authMember?.memberImage}`
-      : "/icons/default-user.svg"
+      : "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
   );
 
   // Handle image upload preview

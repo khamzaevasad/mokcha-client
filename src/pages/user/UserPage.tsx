@@ -24,7 +24,11 @@ export default function UserPage() {
               <div className="text-center mb-6">
                 <div className="relative inline-block mb-4">
                   <img
-                    src={`${serverApi}/${authMember?.memberImage}`}
+                    src={
+                      authMember?.memberImage
+                        ? `${serverApi}/${authMember?.memberImage}`
+                        : "https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+                    }
                     alt="Profile"
                     className="w-24 h-24 rounded-2xl object-cover shadow-lg"
                   />
@@ -53,6 +57,13 @@ export default function UserPage() {
                   {authMember?.memberDesc
                     ? authMember.memberDesc
                     : "No Description"}
+                </p>
+              </div>
+
+              <div className="border-t border-gray-100 pt-4">
+                <p className="text-sm text-gray-600 text-center leading-relaxed">
+                  Your points $
+                  {authMember?.memberPoints ? authMember.memberPoints : " 0"}
                 </p>
               </div>
 
