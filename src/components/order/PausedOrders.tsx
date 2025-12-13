@@ -7,6 +7,7 @@ import { serverApi } from "../../lib/config";
 export default function PausedOrders() {
   const { pausedOrders } = useSelector(retrieveOrdersPage);
 
+  // handlers
   const calculateSubtotal = (order: Order): number => {
     return order.orderItems.reduce(
       (sum, item) => sum + item.itemPrice * item.itemQuantity,
@@ -25,6 +26,7 @@ export default function PausedOrders() {
       ? `${serverApi}/${product.productImages[0]}`
       : "/img/fresh.webp";
   };
+
   const getProductName = (orderId: string, productId: string) => {
     const order = pausedOrders.find((o: Order) => o._id === orderId);
     const product = order?.productData?.find((p) => p._id === productId);
@@ -178,7 +180,7 @@ export default function PausedOrders() {
           </h3>
           <p className="text-gray-500 text-center max-w-md">
             All orders are currently being processed. Paused orders will appear
-            here.
+            here if any are placed on hold.
           </p>
         </div>
       )}
