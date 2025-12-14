@@ -63,7 +63,6 @@ class MemberService {
 
       localStorage.setItem("memberData", JSON.stringify(member));
 
-      console.log("member", member);
       return member;
     } catch (err) {
       console.log("ERROR login", err);

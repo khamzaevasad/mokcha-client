@@ -48,30 +48,30 @@ function ProductCards() {
                   </div>
                 </div>
                 <p>{dish.productDesc}</p>
-                {/* Views */}
-                <div className="flex items-center gap-1 text-sm text-gray-500 my-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.8}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12s-3.75 6.75-9.75 6.75S2.25 12 2.25 12z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 15a3 3 0 100-6 3 3 0 000 6z"
-                    />
-                  </svg>
-                  <span>{dish.productViews} views</span>
-                </div>
-                <div className="card-actions  opacity-100 group-hover:opacity-0">
+                <div className="card-actions flex justify-between items-center gap-2 my-2">
+                  {/* Views */}
+                  <div className="flex items-center gap-1 text-sm text-gray-500 my-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.8}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12s-3.75 6.75-9.75 6.75S2.25 12 2.25 12z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 15a3 3 0 100-6 3 3 0 000 6z"
+                      />
+                    </svg>
+                    <span>{dish.productViews} views</span>
+                  </div>
                   <div className="py-2 px-5 rounded-4xl bg-muted">
                     {sizeVolume}
                   </div>
@@ -92,9 +92,8 @@ function ProductCards() {
                     e.stopPropagation();
                     e.preventDefault();
                   }}
-                  className="absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-6 rounded-4xl
-                   bg-primary text-white font-bold transition-all duration-300
-                   opacity-0 group-hover:opacity-100 cursor-pointer"
+                  className="mt-2 cursor-pointer w-[200px] mx-auto py-2 px-6 rounded-4xl
+                   bg-primary text-white font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   Add to Basket
                 </button>

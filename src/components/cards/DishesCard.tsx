@@ -2,17 +2,20 @@ import { NavLink } from "react-router-dom";
 import { retrieveHomePage } from "../../pages/home/selector";
 import { useSelector } from "react-redux";
 import { serverApi } from "../../lib/config";
-import { useApp } from "../../hooks/useApp";
 import { PackageX } from "lucide-react";
+import { ProductCollection } from "../../lib/enums/product.enum";
 
 function DishesCard() {
   const { popularDishes } = useSelector(retrieveHomePage);
-  const { onAdd } = useApp();
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-6">
       {popularDishes.length > 0 ? (
         popularDishes.map((dish) => {
           const imagePath = `${serverApi}/${dish.productImages[0]}`;
+          const sizeVolume =
+            dish.productCollection === ProductCollection.DRINK
+              ? dish.productVolume + " liter"
+              : "Size: " + dish.productSize.toLocaleLowerCase();
           return (
             <NavLink
               to={`/product/${dish._id}`}
@@ -68,33 +71,14 @@ function DishesCard() {
                   <span>{dish.productViews} views</span>
                 </div>
 
-                <div className="card-actions  opacity-100 group-hover:opacity-0">
+                <div className="card-actions mt-3">
                   <div className="py-2 px-5 rounded-4xl bg-muted">
-                    Size: {dish.productSize}
+                    {sizeVolume}
                   </div>
                   <div className="py-2 px-5 rounded-4xl bg-muted font-semibold">
                     $ {dish.productPrice}
                   </div>
                 </div>
-
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    onAdd({
-                      _id: dish._id,
-                      quantity: 1,
-                      name: dish.productName,
-                      price: dish.productPrice,
-                      image: dish.productImages[0],
-                    });
-                  }}
-                  className="absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-6 rounded-4xl
-               bg-primary text-white font-bold transition-all duration-300
-               opacity-0 group-hover:opacity-100 cursor-pointer"
-                >
-                  Add to Basket
-                </button>
               </div>
             </NavLink>
           );

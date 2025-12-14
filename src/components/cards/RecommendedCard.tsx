@@ -1,8 +1,8 @@
-import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { serverApi } from "../../lib/config";
 import { retrieveProductInfoPage } from "../../pages/productInfo/selector";
 import { useApp } from "../../hooks/useApp";
+import { ProductCollection } from "../../lib/enums/product.enum";
 
 function RecommendedCard() {
   const { onAdd } = useApp();
@@ -12,9 +12,12 @@ function RecommendedCard() {
       {recommendedProduct.length > 0 ? (
         recommendedProduct.map((dish) => {
           const imagePath = `${serverApi}/${dish.productImages[0]}`;
+          const sizeVolume =
+            dish.productCollection === ProductCollection.DRINK
+              ? dish.productVolume + " liter"
+              : "Size: " + dish.productSize.toLocaleLowerCase();
           return (
-            <NavLink
-              to={`/product/${dish._id}`}
+            <div
               key={dish._id}
               className="card bg-card-100  shadow-sm cursor-pointer transition-all duration-400 hover:scale-105 hover:shadow-xl border relative group"
             >
@@ -44,7 +47,7 @@ function RecommendedCard() {
                 <p>{dish.productDesc}</p>
 
                 {/* Views */}
-                <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                <div className="flex items-center gap-1 text-sm text-gray-500 my-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -66,10 +69,9 @@ function RecommendedCard() {
                   </svg>
                   <span>{dish.productViews} views</span>
                 </div>
-
-                <div className="card-actions  opacity-100 group-hover:opacity-0">
+                <div className="card-actions">
                   <div className="py-2 px-5 rounded-4xl bg-muted">
-                    Size: {dish.productSize}
+                    {sizeVolume}
                   </div>
                   <div className="py-2 px-5 rounded-4xl bg-muted font-semibold">
                     $ {dish.productPrice}
@@ -86,14 +88,13 @@ function RecommendedCard() {
                       image: dish.productImages[0],
                     })
                   }
-                  className="absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-6 rounded-4xl
-               bg-primary text-white font-bold transition-all duration-300
-               opacity-0 group-hover:opacity-100 cursor-pointer"
+                  className="mt-2 cursor-pointer py-2 px-6 rounded-4xl
+                   bg-primary text-white font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   Add to Basket
                 </button>
               </div>
-            </NavLink>
+            </div>
           );
         })
       ) : (
