@@ -1,14 +1,18 @@
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import App from "./app/App";
 import { Provider } from "react-redux";
 import { store } from "./app/store.ts";
+import { AppProvider } from "./context/AppProvider.tsx";
+import ToastProvider from "./components/providers/ToastProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <StrictMode>
+    <AppProvider>
+      {/* <StrictMode> */}
+      <ToastProvider />
       <App />
-    </StrictMode>
-    ,
+      {/* </StrictMode> */}
+    </AppProvider>
   </Provider>
 );
