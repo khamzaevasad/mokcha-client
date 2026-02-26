@@ -1,9 +1,9 @@
 #!bin/bash
 
 #PRODUCTION
-# git reset--hard
-# git checkout main
-# git pull origin master
+git reset--hard
+git checkout main
+git pull origin master
 
 npm i yarn -g
 yarn
