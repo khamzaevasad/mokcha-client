@@ -18,7 +18,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 function OrderPage() {
   const [activeTab, setActiveTab] = useState<"paused" | "process" | "finished">(
-    "paused"
+    "paused",
   );
 
   const { orderBuilder, authMember } = useApp();
@@ -28,8 +28,7 @@ function OrderPage() {
 
   if (!authMember) navigate("/");
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
+  const [orderInquiry] = useState<OrderInquiry>({
     page: 1,
     limit: 5,
     orderStatus: OrderStatus.PAUSE,
